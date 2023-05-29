@@ -15,12 +15,12 @@ final class MovieQuizViewController: UIViewController {
     }
     
     private func setFonts() {
-        let mediumFont = UIFont(name: "YS Display-Medium", size: 20)
-        let boldFont = UIFont(name: "YS Display-Bold", size: 23)
+        let mediumFont = UIFont(name: "YSDisplay-Medium", size: 20)!
+        let boldFont = UIFont(name: "YSDisplay-Bold", size: 23)!
         
         questionLabel.font = mediumFont
-        textLabel.font = mediumFont
-        counterLabel.font = boldFont
+        textLabel.font = boldFont
+        counterLabel.font = mediumFont
         noButton.titleLabel?.font = mediumFont
         yesButton.titleLabel?.font = mediumFont
     }
@@ -85,5 +85,4 @@ final class MovieQuizViewController: UIViewController {
     @IBAction private func yesButtonClicked() {
         performResultButtonClick(with: .yes)
     }
-    
 }
