@@ -35,6 +35,7 @@ final class MovieQuizViewController: UIViewController {
         counterLabel.text = "\(movieQuiz.currentRiddleNum)/\(movieQuiz.movieRiddles.count)"
         imageView.image = movieQuiz.currentRiddle.image
         imageView.layer.borderColor = UIColor.black.cgColor
+        imageView.layer.borderWidth = 0
         textLabel.text = movieQuiz.currentRiddle.text
         noButton.isEnabled = true
         yesButton.isEnabled = true
@@ -59,6 +60,7 @@ final class MovieQuizViewController: UIViewController {
     private func updateImageBorder(isPositive: Bool) {
         let color = isPositive ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
         imageView.layer.borderColor = color
+        imageView.layer.borderWidth = 8
     }
     
     private func performResultButtonClick(with answer: Answer) {
