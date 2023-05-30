@@ -275,7 +275,7 @@ struct IMDBGateway {
                 name: "Vivarium",
                 rating: 5.8
             )
-        ]
+        ].shuffled()
     }
 }
 
