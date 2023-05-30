@@ -9,10 +9,18 @@ final class MovieQuizViewController: UIViewController {
         )
     )
     
+    @IBOutlet private weak var questionLabel: UILabel!
+    @IBOutlet private weak var counterLabel: UILabel!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var textLabel: UILabel!
+    @IBOutlet private weak var noButton: UIButton!
+    @IBOutlet private weak var yesButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setFonts()
-        updateView()
+        let gameState = movieQuiz.nextGameState()
+        updateViewState(to: gameState)
     }
     
     private func setFonts() {
@@ -26,61 +34,75 @@ final class MovieQuizViewController: UIViewController {
         yesButton.titleLabel?.font = mediumFont
     }
     
-    private func updateView() {
-        if movieQuiz.gameIsEnded {
-            showEndGameAlert()
-            return
+    private func updateViewState(to state: GameState) {
+        switch state {
+        case .nextRiddle(let currentRiddle, let riddleNum, let riddleCount):
+            counterLabel.text = "\(riddleNum)/\(riddleCount)"
+            imageView.image = currentRiddle.image
+            textLabel.text = currentRiddle.text
+        case .positiveAnswer, .negativeAnswer:
+            break
+        case .gameEnded(let correctAnswers, let riddlesCount):
+            showEndGameAlert(correctAnswers: correctAnswers, riddlesCount: riddlesCount)
         }
-
-        counterLabel.text = "\(movieQuiz.currentRiddleNum)/\(movieQuiz.movieRiddles.count)"
-        imageView.image = movieQuiz.currentRiddle.image
-        imageView.layer.borderColor = UIColor.black.cgColor
-        imageView.layer.borderWidth = 0
-        textLabel.text = movieQuiz.currentRiddle.text
-        noButton.isEnabled = true
-        yesButton.isEnabled = true
+        updateImageState(to: state)
+        updateButtonsState(to: state)
     }
     
-    private func showEndGameAlert() {
+    private func showEndGameAlert(correctAnswers: Int, riddlesCount: Int) {
         let alert = UIAlertController(
             title: "Этот раунд окончен!",
-            message: "Ваш результат \(movieQuiz.correctAnswers)/\(movieQuiz.movieRiddles.count)",
+            message: "Ваш результат \(correctAnswers)/\(riddlesCount)",
             preferredStyle: .alert)
-
+        
         let action = UIAlertAction(title: "Сыграть ещё раз", style: .default) { _ in
             self.movieQuiz.reset()
-            self.updateView()
+            let gameState = self.movieQuiz.nextGameState()
+            self.updateViewState(to: gameState)
         }
-
+        
         alert.addAction(action)
-
+        
         self.present(alert, animated: true, completion: nil)
     }
+    
+    private func updateImageState(to state: GameState) {
+        switch state {
+        case .nextRiddle:
+            imageView.layer.borderColor = UIColor.ypBlack.cgColor
+            imageView.layer.borderWidth = 0
+        case .positiveAnswer:
+            imageView.layer.borderColor = UIColor.ypGreen.cgColor
+            imageView.layer.borderWidth = 8
+        case .negativeAnswer:
+            imageView.layer.borderColor = UIColor.ypRed.cgColor
+            imageView.layer.borderWidth = 8
+        case .gameEnded:
+            break
+        }
+    }
+    
+    private func updateButtonsState(to state: GameState) {
+        switch state {
+        case .nextRiddle:
+            noButton.isEnabled = true
+            yesButton.isEnabled = true
+        case .negativeAnswer, .positiveAnswer, .gameEnded:
+            noButton.isEnabled = false
+            yesButton.isEnabled = false
+        }
 
-    private func updateImageBorder(isPositive: Bool) {
-        let color = isPositive ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
-        imageView.layer.borderColor = color
-        imageView.layer.borderWidth = 8
     }
     
     private func performResultButtonClick(with answer: Answer) {
-        let result = movieQuiz.checkAnswer(answer)
-        updateImageBorder(isPositive: result)
-        noButton.isEnabled = false
-        yesButton.isEnabled = false
-        
+        let gameState = movieQuiz.checkAnswer(answer)
+        updateViewState(to: gameState)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.updateView()
+            let gameState = self.movieQuiz.nextGameState()
+            self.updateViewState(to: gameState)
         }
     }
     
-    @IBOutlet private weak var questionLabel: UILabel!
-    @IBOutlet private weak var counterLabel: UILabel!
-    @IBOutlet private weak var imageView: UIImageView!
-    @IBOutlet private weak var textLabel: UILabel!
-    @IBOutlet private weak var noButton: UIButton!
-    @IBOutlet private weak var yesButton: UIButton!
-
     @IBAction private func noButtonClicked() {
         performResultButtonClick(with: .no)
     }
@@ -92,47 +114,50 @@ final class MovieQuizViewController: UIViewController {
 
 // MARK: - MovieQuizModel
 
-struct MovieQuizModel {
+class MovieQuizModel {
     private let riddleGenerator: RiddleGenerator
-    private(set) var movieRiddles: [MovieRiddle]
-    private(set) var correctAnswers: Int
-    private(set) var currentRiddle: MovieRiddle
+    private(set) var movieRiddles: [MovieRiddle] = []
+    private(set) var correctAnswers: Int = 0
     private(set) var gameIsEnded: Bool = false
+    private(set) var currentRiddleIndex: Int = -1
 
     init(riddleGenerator: RiddleGenerator) {
         self.riddleGenerator = riddleGenerator
-        movieRiddles = riddleGenerator.generate()
-        correctAnswers = 0
-        currentRiddle = movieRiddles[0]
-    }
-
-    var currentRiddleNum: Int {
-        guard let index = movieRiddles.firstIndex(where: { riddle in riddle.name == currentRiddle.name }) else {
-            return movieRiddles.count
-        }
-        return index + 1
     }
     
-    mutating func reset() {
+    func reset() {
         gameIsEnded = false
-        movieRiddles = riddleGenerator.generate()
         correctAnswers = 0
-        currentRiddle = movieRiddles[0]
+        currentRiddleIndex = -1
     }
     
-    mutating func checkAnswer(_ answer: Answer) -> Bool {
-        var result = false
-        if currentRiddle.correctAnswer == answer {
+    func checkAnswer(_ answer: Answer) -> GameState {
+        if movieRiddles[currentRiddleIndex].correctAnswer == answer {
             correctAnswers += 1
-            result = true
-        }
-        if currentRiddleNum == movieRiddles.count {
-            gameIsEnded = true
+            return .positiveAnswer
         } else {
-            currentRiddle = movieRiddles[currentRiddleNum]
+            return .negativeAnswer
         }
-        return result
     }
+    
+    func nextGameState() -> GameState {
+        currentRiddleIndex += 1
+        if currentRiddleIndex == 0 { movieRiddles = riddleGenerator.generate() }
+
+        guard currentRiddleIndex < movieRiddles.count else {
+            return .gameEnded(correctAnswers, movieRiddles.count)
+        }
+        
+        let currentRiddle = movieRiddles[currentRiddleIndex]
+        return .nextRiddle(currentRiddle, currentRiddleIndex + 1, movieRiddles.count)
+    }
+}
+
+enum GameState {
+    case nextRiddle(MovieRiddle, Int, Int)
+    case positiveAnswer
+    case negativeAnswer
+    case gameEnded(Int, Int)
 }
 
 struct RiddleGenerator {
@@ -160,7 +185,7 @@ struct RiddleGenerator {
     }
     
     private func generateSign() -> RiddleSign {
-        return Bool.random() ? RiddleSign.More : RiddleSign.Less
+        return Bool.random() ? RiddleSign.more : RiddleSign.less
     }
 }
 
@@ -180,18 +205,18 @@ struct MovieRiddle {
     }
     
     var text: String {
-        return "Рейтинг этого фильма \(riddleSign.rawValue) чем \(riddleValue)?"
+        return "Рейтинг этого фильма \(riddleSign.rawValue) чем \(riddleValue.formatForRiddle())?"
     }
     
     var correctAnswer: Answer {
-        let raitingIsLess = rating < riddleValue ? RiddleSign.Less : RiddleSign.More
+        let raitingIsLess = rating < riddleValue ? RiddleSign.less : RiddleSign.more
         return raitingIsLess == riddleSign ? Answer.yes : Answer.no
     }
 }
 
 enum RiddleSign: String {
-    case More = "больше"
-    case Less = "меньше"
+    case more = "больше"
+    case less = "меньше"
 }
 
 enum Answer {
@@ -251,5 +276,19 @@ struct IMDBGateway {
                 rating: 5.8
             )
         ]
+    }
+}
+
+// MARK: - Double extension
+
+extension Double {
+    func formatForRiddle() -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.minimumIntegerDigits = 1
+        numberFormatter.minimumFractionDigits = 0
+        numberFormatter.maximumFractionDigits = 1
+
+        return numberFormatter.string(for: self) ?? ""
     }
 }
