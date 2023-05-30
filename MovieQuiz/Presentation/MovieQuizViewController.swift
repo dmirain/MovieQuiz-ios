@@ -116,10 +116,10 @@ final class MovieQuizViewController: UIViewController {
 
 class MovieQuizModel {
     private let riddleGenerator: RiddleGenerator
-    private(set) var movieRiddles: [MovieRiddle] = []
-    private(set) var correctAnswers: Int = 0
-    private(set) var gameIsEnded: Bool = false
-    private(set) var currentRiddleIndex: Int = -1
+    private var movieRiddles: [MovieRiddle] = []
+    private var correctAnswers: Int = 0
+    private var gameIsEnded: Bool = false
+    private var currentRiddleIndex: Int = -1
 
     init(riddleGenerator: RiddleGenerator) {
         self.riddleGenerator = riddleGenerator
