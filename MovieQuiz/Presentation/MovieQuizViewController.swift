@@ -19,8 +19,7 @@ final class MovieQuizViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setFonts()
-        let gameState = movieQuiz.nextGameState()
-        updateViewState(to: gameState)
+        self.nextRiddle()
     }
     
     private func setFonts() {
@@ -55,10 +54,8 @@ final class MovieQuizViewController: UIViewController {
             message: "Ваш результат \(correctAnswers)/\(riddlesCount)",
             preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Сыграть ещё раз", style: .default) { _ in
-            self.movieQuiz.reset()
-            let gameState = self.movieQuiz.nextGameState()
-            self.updateViewState(to: gameState)
+        let action = UIAlertAction(title: "Сыграть ещё раз", style: .default) { [weak self] _ in
+            self?.nextRiddle(restartGame: true)
         }
         
         alert.addAction(action)
@@ -66,40 +63,29 @@ final class MovieQuizViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    private func nextRiddle(restartGame: Bool = false) {
+        if restartGame { self.movieQuiz.reset() }
+        let gameState = self.movieQuiz.nextGameState()
+        self.updateViewState(to: gameState)
+    }
+    
     private func updateImageState(to state: GameState) {
-        switch state {
-        case .nextRiddle:
-            imageView.layer.borderColor = UIColor.ypBlack.cgColor
-            imageView.layer.borderWidth = 0
-        case .positiveAnswer:
-            imageView.layer.borderColor = UIColor.ypGreen.cgColor
-            imageView.layer.borderWidth = 8
-        case .negativeAnswer:
-            imageView.layer.borderColor = UIColor.ypRed.cgColor
-            imageView.layer.borderWidth = 8
-        case .gameEnded:
-            break
+        if let borderColor = state.imageBorderColor {
+            imageView.layer.borderColor = borderColor
         }
+        imageView.layer.borderWidth = state.imageBorderWidth
     }
     
     private func updateButtonsState(to state: GameState) {
-        switch state {
-        case .nextRiddle:
-            noButton.isEnabled = true
-            yesButton.isEnabled = true
-        case .negativeAnswer, .positiveAnswer, .gameEnded:
-            noButton.isEnabled = false
-            yesButton.isEnabled = false
-        }
-
+        noButton.isEnabled = state.canAnswer
+        yesButton.isEnabled = state.canAnswer
     }
     
     private func performResultButtonClick(with answer: Answer) {
         let gameState = movieQuiz.checkAnswer(answer)
         updateViewState(to: gameState)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            let gameState = self.movieQuiz.nextGameState()
-            self.updateViewState(to: gameState)
+            self.nextRiddle()
         }
     }
     
@@ -112,183 +98,36 @@ final class MovieQuizViewController: UIViewController {
     }
 }
 
-// MARK: - MovieQuizModel
 
-class MovieQuizModel {
-    private let riddleGenerator: RiddleGenerator
-    private var movieRiddles: [MovieRiddle] = []
-    private var correctAnswers: Int = 0
-    private var gameIsEnded: Bool = false
-    private var currentRiddleIndex: Int = -1
-
-    init(riddleGenerator: RiddleGenerator) {
-        self.riddleGenerator = riddleGenerator
-    }
-    
-    func reset() {
-        gameIsEnded = false
-        correctAnswers = 0
-        currentRiddleIndex = -1
-    }
-    
-    func checkAnswer(_ answer: Answer) -> GameState {
-        if movieRiddles[currentRiddleIndex].correctAnswer == answer {
-            correctAnswers += 1
-            return .positiveAnswer
-        } else {
-            return .negativeAnswer
+fileprivate extension GameState {
+    var canAnswer: Bool {
+        switch self {
+        case .nextRiddle:
+            return true
+        case .negativeAnswer, .positiveAnswer, .gameEnded:
+            return false
         }
     }
     
-    func nextGameState() -> GameState {
-        currentRiddleIndex += 1
-        if currentRiddleIndex == 0 { movieRiddles = riddleGenerator.generate() }
-
-        guard currentRiddleIndex < movieRiddles.count else {
-            return .gameEnded(correctAnswers, movieRiddles.count)
-        }
-        
-        let currentRiddle = movieRiddles[currentRiddleIndex]
-        return .nextRiddle(currentRiddle, currentRiddleIndex + 1, movieRiddles.count)
-    }
-}
-
-enum GameState {
-    case nextRiddle(MovieRiddle, Int, Int)
-    case positiveAnswer
-    case negativeAnswer
-    case gameEnded(Int, Int)
-}
-
-struct RiddleGenerator {
-    private let imdbGateway: IMDBGateway
-    
-    init(imdbGateway: IMDBGateway) {
-        self.imdbGateway = imdbGateway
-    }
-    
-    func generate() -> [MovieRiddle] {
-        let movies = imdbGateway.movies()
-        return movies.map { movie in
-            MovieRiddle(
-                name: movie.name,
-                rating: movie.rating,
-                image: UIImage(named: movie.name) ?? UIImage(),
-                riddleValue: generateValue(),
-                riddleSign: generateSign()
-            )
+    var imageBorderColor: CGColor? {
+        switch self {
+        case .nextRiddle:
+            return UIColor.ypBlack.cgColor
+        case .positiveAnswer:
+            return UIColor.ypGreen.cgColor
+        case .negativeAnswer:
+            return UIColor.ypRed.cgColor
+        case .gameEnded:
+            return nil
         }
     }
-    
-    private func generateValue() -> Double {
-        return (Double.random(in: 4...10) * 10).rounded() / 10
-    }
-    
-    private func generateSign() -> RiddleSign {
-        return Bool.random() ? RiddleSign.more : RiddleSign.less
-    }
-}
 
-struct MovieRiddle {
-    let name: String
-    let image: UIImage
-    private let rating: Double
-    private let riddleValue: Double
-    private let riddleSign: RiddleSign
-    
-    init(name: String, rating: Double, image: UIImage, riddleValue: Double, riddleSign: RiddleSign) {
-        self.name = name
-        self.rating = rating
-        self.image = image
-        self.riddleValue = riddleValue
-        self.riddleSign = riddleSign
-    }
-    
-    var text: String {
-        return "Рейтинг этого фильма \(riddleSign.rawValue) чем \(riddleValue.formatForRiddle())?"
-    }
-    
-    var correctAnswer: Answer {
-        let raitingIsLess = rating < riddleValue ? RiddleSign.less : RiddleSign.more
-        return raitingIsLess == riddleSign ? Answer.yes : Answer.no
-    }
-}
-
-enum RiddleSign: String {
-    case more = "больше"
-    case less = "меньше"
-}
-
-enum Answer {
-    case yes
-    case no
-}
-
-
-// MARK: - IMDBGateway
-
-struct IMDBMovie {
-    let name: String
-    let rating: Double
-}
-
-struct IMDBGateway {
-    func movies() -> [IMDBMovie] {
-        return [
-            IMDBMovie(
-                name: "The Godfather",
-                rating: 9.2
-            ),
-            IMDBMovie(
-                name: "The Dark Knight",
-                rating: 9
-            ),
-            IMDBMovie(
-                name: "Kill Bill",
-                rating: 8.1
-            ),
-            IMDBMovie(
-                name: "The Avengers",
-                rating: 8
-            ),
-            IMDBMovie(
-                name: "Deadpool",
-                rating: 8
-            ),
-            IMDBMovie(
-                name: "The Green Knight",
-                rating: 6.6
-            ),
-            IMDBMovie(
-                name: "Old",
-                rating: 5.8
-            ),
-            IMDBMovie(
-                name: "The Ice Age Adventures of Buck Wild",
-                rating: 4.3
-            ),
-            IMDBMovie(
-                name: "Tesla",
-                rating: 5.1
-            ),
-            IMDBMovie(
-                name: "Vivarium",
-                rating: 5.8
-            )
-        ].shuffled()
-    }
-}
-
-// MARK: - Double extension
-
-extension Double {
-    func formatForRiddle() -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.minimumIntegerDigits = 1
-        numberFormatter.minimumFractionDigits = 0
-        numberFormatter.maximumFractionDigits = 1
-
-        return numberFormatter.string(for: self) ?? ""
+    var imageBorderWidth: CGFloat {
+        switch self {
+        case .nextRiddle:
+            return 0
+        case .positiveAnswer, .negativeAnswer, .gameEnded:
+            return 8
+        }
     }
 }
