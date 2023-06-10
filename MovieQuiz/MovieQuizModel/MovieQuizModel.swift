@@ -1,11 +1,20 @@
-class MovieQuizModel {
-    private let riddleGenerator: RiddleGenerator
-    private var movieRiddles: [MovieRiddle] = []
+protocol MovieQuizModelProtocol {
+    init(riddleGenerator: RiddleFactoryProtocol)
+    
+    func reset()
+    func checkAnswer(_ answer: Answer) -> GameState
+    func nextGameState() -> GameState
+}
+
+
+class MovieQuizModel: MovieQuizModelProtocol {
+    private let riddleGenerator: RiddleFactoryProtocol
+    private var movieRiddles: [MovieRiddleProtocol] = []
     private var correctAnswers: Int = 0
     private var gameIsEnded: Bool = false
     private var currentRiddleIndex: Int = 0
 
-    init(riddleGenerator: RiddleGenerator) {
+    required init(riddleGenerator: RiddleFactoryProtocol) {
         self.riddleGenerator = riddleGenerator
     }
     

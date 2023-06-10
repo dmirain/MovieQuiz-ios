@@ -1,4 +1,8 @@
-struct IMDBGateway {
+protocol IMDBGatewayProtocol {
+    func movies() -> [IMDBMovie]
+}
+
+struct IMDBGateway: IMDBGatewayProtocol {
     func movies() -> [IMDBMovie] {
         return [
             IMDBMovie(

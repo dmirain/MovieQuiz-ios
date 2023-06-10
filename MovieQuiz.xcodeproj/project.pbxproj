@@ -10,7 +10,7 @@
 		792C4F3F2A27E27B00D54203 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F3E2A27E27B00D54203 /* Double+Extensions.swift */; };
 		792C4F422A27F1DE00D54203 /* MovieQuizModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F412A27F1DE00D54203 /* MovieQuizModel.swift */; };
 		792C4F442A27F20800D54203 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F432A27F20800D54203 /* GameState.swift */; };
-		792C4F462A27F22800D54203 /* RiddleGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F452A27F22800D54203 /* RiddleGenerator.swift */; };
+		792C4F462A27F22800D54203 /* RiddleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F452A27F22800D54203 /* RiddleFactory.swift */; };
 		792C4F482A27F25600D54203 /* MovieRiddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F472A27F25600D54203 /* MovieRiddle.swift */; };
 		792C4F4A2A27F36000D54203 /* RiddleSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F492A27F36000D54203 /* RiddleSign.swift */; };
 		792C4F4C2A27F38B00D54203 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F4B2A27F38B00D54203 /* Answer.swift */; };
@@ -33,7 +33,7 @@
 		792C4F3E2A27E27B00D54203 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		792C4F412A27F1DE00D54203 /* MovieQuizModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizModel.swift; sourceTree = "<group>"; };
 		792C4F432A27F20800D54203 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
-		792C4F452A27F22800D54203 /* RiddleGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiddleGenerator.swift; sourceTree = "<group>"; };
+		792C4F452A27F22800D54203 /* RiddleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiddleFactory.swift; sourceTree = "<group>"; };
 		792C4F472A27F25600D54203 /* MovieRiddle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRiddle.swift; sourceTree = "<group>"; };
 		792C4F492A27F36000D54203 /* RiddleSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiddleSign.swift; sourceTree = "<group>"; };
 		792C4F4B2A27F38B00D54203 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
@@ -69,7 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				792C4F412A27F1DE00D54203 /* MovieQuizModel.swift */,
-				792C4F452A27F22800D54203 /* RiddleGenerator.swift */,
+				792C4F452A27F22800D54203 /* RiddleFactory.swift */,
 				792C4F472A27F25600D54203 /* MovieRiddle.swift */,
 				792C4F432A27F20800D54203 /* GameState.swift */,
 				792C4F492A27F36000D54203 /* RiddleSign.swift */,
@@ -243,7 +243,7 @@
 				792C4F4C2A27F38B00D54203 /* Answer.swift in Sources */,
 				AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */,
 				792C4F442A27F20800D54203 /* GameState.swift in Sources */,
-				792C4F462A27F22800D54203 /* RiddleGenerator.swift in Sources */,
+				792C4F462A27F22800D54203 /* RiddleFactory.swift in Sources */,
 				AD1ABAB22831907B00B3E448 /* AppDelegate.swift in Sources */,
 				AD1ABAB42831907B00B3E448 /* SceneDelegate.swift in Sources */,
 			);

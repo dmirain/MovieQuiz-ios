@@ -1,6 +1,16 @@
 import UIKit
 
-struct MovieRiddle {
+protocol MovieRiddleProtocol {
+    var name: String { get }
+    var image: UIImage { get }
+    var text: String { get }
+    var correctAnswer: Answer { get }
+    
+    init(name: String, rating: Double, image: UIImage, riddleValue: Double, riddleSign: RiddleSign)
+}
+
+
+struct MovieRiddle: MovieRiddleProtocol {
     let name: String
     let image: UIImage
     private let rating: Double

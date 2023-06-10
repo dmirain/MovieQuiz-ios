@@ -1,13 +1,18 @@
 import UIKit
 
-struct RiddleGenerator {
-    private let imdbGateway: IMDBGateway
+protocol RiddleFactoryProtocol {
+    init(imdbGateway: IMDBGatewayProtocol)
+    func generate() -> [MovieRiddleProtocol]
+}
+
+struct RiddleFactory: RiddleFactoryProtocol {
+    private let imdbGateway: IMDBGatewayProtocol
     
-    init(imdbGateway: IMDBGateway) {
+    init(imdbGateway: IMDBGatewayProtocol) {
         self.imdbGateway = imdbGateway
     }
     
-    func generate() -> [MovieRiddle] {
+    func generate() -> [MovieRiddleProtocol] {
         let movies = imdbGateway.movies()
         return movies.map { movie in
             MovieRiddle(
