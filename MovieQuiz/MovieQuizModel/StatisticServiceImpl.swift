@@ -1,6 +1,6 @@
 import Foundation
 
-struct StatisticCalculatorImpl: StatisticCalculator {
+struct StatisticServiceImpl: StatisticService {
     private let storage: StatisticStorage
     
     init(storage: StatisticStorage) {

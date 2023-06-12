@@ -17,7 +17,7 @@ final class MovieQuizViewController: UIViewController {
             riddleGenerator: RiddleFactoryImpl(
                 imdbGateway: IMDBGatewayImpl()
             ),
-            statisticCalculator: StatisticCalculatorImpl(
+            statisticService: StatisticServiceImpl(
                 storage: StatisticStorageImpl.shared
             )
         )
@@ -58,7 +58,7 @@ final class MovieQuizViewController: UIViewController {
             message: """
                 Ваш результат: \(gameResult.correctAnswers)/\(gameResult.riddlesCount)
                 Количество сыгранных квизов: \(statistic.gamesCount)
-                Рекорд: \(statistic.recordValue)\\10 (\(statistic.recordDate.dateTimeString))
+                Рекорд: \(statistic.recordValue)/10 (\(statistic.recordDate.dateTimeString))
                 Средняя точность: \(statistic.averageValue.asRiddleNum)%
             """,
             preferredStyle: .alert)

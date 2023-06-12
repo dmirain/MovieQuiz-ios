@@ -1,5 +1,5 @@
 protocol MovieQuizModel {
-    init(riddleGenerator: RiddleFactory, statisticCalculator: StatisticCalculator)
+    init(riddleGenerator: RiddleFactory, statisticService: StatisticService)
     
     func reset()
     func checkAnswer(_ answer: Answer) -> GameState

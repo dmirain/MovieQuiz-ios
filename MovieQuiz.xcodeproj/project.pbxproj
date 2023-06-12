@@ -23,8 +23,8 @@
 		7970E6032A37941200E42D26 /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E6022A37941200E42D26 /* Data+Extensions.swift */; };
 		7970E6072A37A47900E42D26 /* StatisticDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E6062A37A47900E42D26 /* StatisticDto.swift */; };
 		7970E6092A37A48A00E42D26 /* GameResultDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E6082A37A48A00E42D26 /* GameResultDto.swift */; };
-		7970E60C2A37A4E400E42D26 /* StatisticCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E60B2A37A4E400E42D26 /* StatisticCalculator.swift */; };
-		7970E60E2A37A4F500E42D26 /* StatisticCalculatorImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E60D2A37A4F500E42D26 /* StatisticCalculatorImpl.swift */; };
+		7970E60C2A37A4E400E42D26 /* StatisticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E60B2A37A4E400E42D26 /* StatisticService.swift */; };
+		7970E60E2A37A4F500E42D26 /* StatisticServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E60D2A37A4F500E42D26 /* StatisticServiceImpl.swift */; };
 		7970E6102A37A54A00E42D26 /* StatisticStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E60F2A37A54A00E42D26 /* StatisticStorage.swift */; };
 		798B2CFB2A365AA3002477D6 /* IMDBGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798B2CFA2A365AA3002477D6 /* IMDBGateway.swift */; };
 		799175472A1FBC7900ACA683 /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 799175452A1FBC7800ACA683 /* YS Display-Bold.ttf */; };
@@ -57,8 +57,8 @@
 		7970E6022A37941200E42D26 /* Data+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extensions.swift"; sourceTree = "<group>"; };
 		7970E6062A37A47900E42D26 /* StatisticDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticDto.swift; sourceTree = "<group>"; };
 		7970E6082A37A48A00E42D26 /* GameResultDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResultDto.swift; sourceTree = "<group>"; };
-		7970E60B2A37A4E400E42D26 /* StatisticCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCalculator.swift; sourceTree = "<group>"; };
-		7970E60D2A37A4F500E42D26 /* StatisticCalculatorImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCalculatorImpl.swift; sourceTree = "<group>"; };
+		7970E60B2A37A4E400E42D26 /* StatisticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticService.swift; sourceTree = "<group>"; };
+		7970E60D2A37A4F500E42D26 /* StatisticServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticServiceImpl.swift; sourceTree = "<group>"; };
 		7970E60F2A37A54A00E42D26 /* StatisticStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticStorage.swift; sourceTree = "<group>"; };
 		798B2CFA2A365AA3002477D6 /* IMDBGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMDBGateway.swift; sourceTree = "<group>"; };
 		799175452A1FBC7800ACA683 /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
@@ -98,8 +98,8 @@
 				792C4F452A27F22800D54203 /* RiddleFactoryImpl.swift */,
 				7970E5FE2A36FA9A00E42D26 /* MovieRiddle.swift */,
 				792C4F472A27F25600D54203 /* MovieRiddleImpl.swift */,
-				7970E60B2A37A4E400E42D26 /* StatisticCalculator.swift */,
-				7970E60D2A37A4F500E42D26 /* StatisticCalculatorImpl.swift */,
+				7970E60B2A37A4E400E42D26 /* StatisticService.swift */,
+				7970E60D2A37A4F500E42D26 /* StatisticServiceImpl.swift */,
 				7970E60F2A37A54A00E42D26 /* StatisticStorage.swift */,
 				7970E6002A3707AF00E42D26 /* StatisticStorageImpl.swift */,
 			);
@@ -287,7 +287,7 @@
 				792C4F512A27F46700D54203 /* IMDBMovie.swift in Sources */,
 				792C4F4F2A27F43D00D54203 /* IMDBGatewayImpl.swift in Sources */,
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
-				7970E60E2A37A4F500E42D26 /* StatisticCalculatorImpl.swift in Sources */,
+				7970E60E2A37A4F500E42D26 /* StatisticServiceImpl.swift in Sources */,
 				792C4F482A27F25600D54203 /* MovieRiddleImpl.swift in Sources */,
 				792C4F4A2A27F36000D54203 /* RiddleSign.swift in Sources */,
 				7970E6092A37A48A00E42D26 /* GameResultDto.swift in Sources */,
@@ -295,7 +295,7 @@
 				7970E5FD2A36FA6A00E42D26 /* RiddleFactory.swift in Sources */,
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
 				7970E5FF2A36FA9A00E42D26 /* MovieRiddle.swift in Sources */,
-				7970E60C2A37A4E400E42D26 /* StatisticCalculator.swift in Sources */,
+				7970E60C2A37A4E400E42D26 /* StatisticService.swift in Sources */,
 				792C4F4C2A27F38B00D54203 /* Answer.swift in Sources */,
 				798B2CFB2A365AA3002477D6 /* IMDBGateway.swift in Sources */,
 				AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */,
