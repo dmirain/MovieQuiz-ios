@@ -8,14 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		792C4F3F2A27E27B00D54203 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F3E2A27E27B00D54203 /* Double+Extensions.swift */; };
-		792C4F422A27F1DE00D54203 /* MovieQuizModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F412A27F1DE00D54203 /* MovieQuizModel.swift */; };
+		792C4F422A27F1DE00D54203 /* MovieQuizModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F412A27F1DE00D54203 /* MovieQuizModelImpl.swift */; };
 		792C4F442A27F20800D54203 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F432A27F20800D54203 /* GameState.swift */; };
-		792C4F462A27F22800D54203 /* RiddleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F452A27F22800D54203 /* RiddleFactory.swift */; };
-		792C4F482A27F25600D54203 /* MovieRiddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F472A27F25600D54203 /* MovieRiddle.swift */; };
+		792C4F462A27F22800D54203 /* RiddleFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F452A27F22800D54203 /* RiddleFactoryImpl.swift */; };
+		792C4F482A27F25600D54203 /* MovieRiddleImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F472A27F25600D54203 /* MovieRiddleImpl.swift */; };
 		792C4F4A2A27F36000D54203 /* RiddleSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F492A27F36000D54203 /* RiddleSign.swift */; };
 		792C4F4C2A27F38B00D54203 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F4B2A27F38B00D54203 /* Answer.swift */; };
-		792C4F4F2A27F43D00D54203 /* IMDBGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F4E2A27F43D00D54203 /* IMDBGateway.swift */; };
+		792C4F4F2A27F43D00D54203 /* IMDBGatewayImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F4E2A27F43D00D54203 /* IMDBGatewayImpl.swift */; };
 		792C4F512A27F46700D54203 /* IMDBMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F502A27F46700D54203 /* IMDBMovie.swift */; };
+		7970E5FB2A36FA3400E42D26 /* MovieQuizModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E5FA2A36FA3400E42D26 /* MovieQuizModel.swift */; };
+		7970E5FD2A36FA6A00E42D26 /* RiddleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E5FC2A36FA6A00E42D26 /* RiddleFactory.swift */; };
+		7970E5FF2A36FA9A00E42D26 /* MovieRiddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E5FE2A36FA9A00E42D26 /* MovieRiddle.swift */; };
+		798B2CFB2A365AA3002477D6 /* IMDBGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798B2CFA2A365AA3002477D6 /* IMDBGateway.swift */; };
 		799175472A1FBC7900ACA683 /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 799175452A1FBC7800ACA683 /* YS Display-Bold.ttf */; };
 		799175482A1FBC7900ACA683 /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 799175462A1FBC7800ACA683 /* YS Display-Medium.ttf */; };
 		AD1ABAB22831907B00B3E448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1ABAB12831907B00B3E448 /* AppDelegate.swift */; };
@@ -31,14 +35,18 @@
 
 /* Begin PBXFileReference section */
 		792C4F3E2A27E27B00D54203 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
-		792C4F412A27F1DE00D54203 /* MovieQuizModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizModel.swift; sourceTree = "<group>"; };
+		792C4F412A27F1DE00D54203 /* MovieQuizModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizModelImpl.swift; sourceTree = "<group>"; };
 		792C4F432A27F20800D54203 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
-		792C4F452A27F22800D54203 /* RiddleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiddleFactory.swift; sourceTree = "<group>"; };
-		792C4F472A27F25600D54203 /* MovieRiddle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRiddle.swift; sourceTree = "<group>"; };
+		792C4F452A27F22800D54203 /* RiddleFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiddleFactoryImpl.swift; sourceTree = "<group>"; };
+		792C4F472A27F25600D54203 /* MovieRiddleImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRiddleImpl.swift; sourceTree = "<group>"; };
 		792C4F492A27F36000D54203 /* RiddleSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiddleSign.swift; sourceTree = "<group>"; };
 		792C4F4B2A27F38B00D54203 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
-		792C4F4E2A27F43D00D54203 /* IMDBGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMDBGateway.swift; sourceTree = "<group>"; };
+		792C4F4E2A27F43D00D54203 /* IMDBGatewayImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMDBGatewayImpl.swift; sourceTree = "<group>"; };
 		792C4F502A27F46700D54203 /* IMDBMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMDBMovie.swift; sourceTree = "<group>"; };
+		7970E5FA2A36FA3400E42D26 /* MovieQuizModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizModel.swift; sourceTree = "<group>"; };
+		7970E5FC2A36FA6A00E42D26 /* RiddleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiddleFactory.swift; sourceTree = "<group>"; };
+		7970E5FE2A36FA9A00E42D26 /* MovieRiddle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRiddle.swift; sourceTree = "<group>"; };
+		798B2CFA2A365AA3002477D6 /* IMDBGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMDBGateway.swift; sourceTree = "<group>"; };
 		799175452A1FBC7800ACA683 /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
 		799175462A1FBC7800ACA683 /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Medium.ttf"; sourceTree = "<group>"; };
 		AD1ABAAE2831907B00B3E448 /* MovieQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,9 +76,12 @@
 		792C4F402A27F1B700D54203 /* MovieQuizModel */ = {
 			isa = PBXGroup;
 			children = (
-				792C4F412A27F1DE00D54203 /* MovieQuizModel.swift */,
-				792C4F452A27F22800D54203 /* RiddleFactory.swift */,
-				792C4F472A27F25600D54203 /* MovieRiddle.swift */,
+				7970E5FA2A36FA3400E42D26 /* MovieQuizModel.swift */,
+				792C4F412A27F1DE00D54203 /* MovieQuizModelImpl.swift */,
+				7970E5FC2A36FA6A00E42D26 /* RiddleFactory.swift */,
+				792C4F452A27F22800D54203 /* RiddleFactoryImpl.swift */,
+				7970E5FE2A36FA9A00E42D26 /* MovieRiddle.swift */,
+				792C4F472A27F25600D54203 /* MovieRiddleImpl.swift */,
 				792C4F432A27F20800D54203 /* GameState.swift */,
 				792C4F492A27F36000D54203 /* RiddleSign.swift */,
 				792C4F4B2A27F38B00D54203 /* Answer.swift */,
@@ -81,7 +92,8 @@
 		792C4F4D2A27F41800D54203 /* IMDBGateway */ = {
 			isa = PBXGroup;
 			children = (
-				792C4F4E2A27F43D00D54203 /* IMDBGateway.swift */,
+				798B2CFA2A365AA3002477D6 /* IMDBGateway.swift */,
+				792C4F4E2A27F43D00D54203 /* IMDBGatewayImpl.swift */,
 				792C4F502A27F46700D54203 /* IMDBMovie.swift */,
 			);
 			path = IMDBGateway;
@@ -232,19 +244,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */,
-				792C4F422A27F1DE00D54203 /* MovieQuizModel.swift in Sources */,
+				792C4F422A27F1DE00D54203 /* MovieQuizModelImpl.swift in Sources */,
 				792C4F512A27F46700D54203 /* IMDBMovie.swift in Sources */,
-				792C4F4F2A27F43D00D54203 /* IMDBGateway.swift in Sources */,
+				792C4F4F2A27F43D00D54203 /* IMDBGatewayImpl.swift in Sources */,
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
-				792C4F482A27F25600D54203 /* MovieRiddle.swift in Sources */,
+				792C4F482A27F25600D54203 /* MovieRiddleImpl.swift in Sources */,
 				792C4F4A2A27F36000D54203 /* RiddleSign.swift in Sources */,
 				792C4F3F2A27E27B00D54203 /* Double+Extensions.swift in Sources */,
+				7970E5FD2A36FA6A00E42D26 /* RiddleFactory.swift in Sources */,
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
+				7970E5FF2A36FA9A00E42D26 /* MovieRiddle.swift in Sources */,
 				792C4F4C2A27F38B00D54203 /* Answer.swift in Sources */,
+				798B2CFB2A365AA3002477D6 /* IMDBGateway.swift in Sources */,
 				AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */,
 				792C4F442A27F20800D54203 /* GameState.swift in Sources */,
-				792C4F462A27F22800D54203 /* RiddleFactory.swift in Sources */,
+				792C4F462A27F22800D54203 /* RiddleFactoryImpl.swift in Sources */,
 				AD1ABAB22831907B00B3E448 /* AppDelegate.swift in Sources */,
+				7970E5FB2A36FA3400E42D26 /* MovieQuizModel.swift in Sources */,
 				AD1ABAB42831907B00B3E448 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

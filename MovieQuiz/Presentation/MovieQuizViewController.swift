@@ -3,7 +3,7 @@ import UIKit
 // MARK: - MovieQuizViewController
 
 final class MovieQuizViewController: UIViewController {
-    private var movieQuiz: MovieQuizModelProtocol!
+    private var movieQuiz: MovieQuizModel!
     
     @IBOutlet private weak var questionLabel: UILabel!
     @IBOutlet private weak var counterLabel: UILabel!
@@ -13,9 +13,9 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private weak var yesButton: UIButton!
     
     override func viewDidLoad() {
-        movieQuiz = MovieQuizModel(
-            riddleGenerator: RiddleFactory(
-                imdbGateway: IMDBGateway()
+        movieQuiz = MovieQuizModelImpl(
+            riddleGenerator: RiddleFactoryImpl(
+                imdbGateway: IMDBGatewayImpl()
             )
         )
         super.viewDidLoad()
