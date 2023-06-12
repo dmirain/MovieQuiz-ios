@@ -58,7 +58,7 @@ final class MovieQuizViewController: UIViewController {
             message: """
                 Ваш результат: \(gameResult.correctAnswers)/\(gameResult.riddlesCount)
                 Количество сыгранных квизов: \(statistic.gamesCount)
-                Рекорд: \(statistic.recordValue)\\10 (\(statistic.recordDate))
+                Рекорд: \(statistic.recordValue)\\10 (\(statistic.recordDate.dateTimeString))
                 Средняя точность: \(statistic.averageValue.asRiddleNum)%
             """,
             preferredStyle: .alert)
