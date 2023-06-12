@@ -3,7 +3,6 @@ class MovieQuizModelImpl: MovieQuizModel {
     private let statisticCalculator: StatisticCalculator
     private var movieRiddles: [MovieRiddle] = []
     private var correctAnswers: Int = 0
-    private var gameIsEnded: Bool = false
     private var currentRiddleIndex: Int = 0
 
     required init(riddleGenerator: RiddleFactory, statisticCalculator: StatisticCalculator) {
@@ -12,7 +11,6 @@ class MovieQuizModelImpl: MovieQuizModel {
     }
     
     func reset() {
-        gameIsEnded = false
         correctAnswers = 0
         currentRiddleIndex = 0
         movieRiddles = []
