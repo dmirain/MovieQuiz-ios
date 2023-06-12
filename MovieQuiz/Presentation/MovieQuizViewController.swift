@@ -16,6 +16,9 @@ final class MovieQuizViewController: UIViewController {
         movieQuiz = MovieQuizModelImpl(
             riddleGenerator: RiddleFactoryImpl(
                 imdbGateway: IMDBGatewayImpl()
+            ),
+            statisticCalculator: StatisticCalculatorImpl(
+                storage: StatisticStorageImpl.shared
             )
         )
         super.viewDidLoad()
@@ -42,17 +45,22 @@ final class MovieQuizViewController: UIViewController {
             textLabel.text = currentRiddle.text
         case .positiveAnswer, .negativeAnswer:
             break
-        case .gameEnded(let correctAnswers, let riddlesCount):
-            showEndGameAlert(correctAnswers: correctAnswers, riddlesCount: riddlesCount)
+        case .gameEnded(let gameResult, let statistic):
+            showEndGameAlert(gameResult: gameResult, statistic: statistic)
         }
         updateImageState(to: state)
         updateButtonsState(to: state)
     }
     
-    private func showEndGameAlert(correctAnswers: Int, riddlesCount: Int) {
+    private func showEndGameAlert(gameResult: GameResultDto, statistic: StatisticDto) {
         let alert = UIAlertController(
             title: "Этот раунд окончен!",
-            message: "Ваш результат \(correctAnswers)/\(riddlesCount)",
+            message: """
+                Ваш результат: \(gameResult.correctAnswers)/\(gameResult.riddlesCount)
+                Количество сыгранных квизов: \(statistic.gamesCount)
+                Рекорд: \(statistic.recordValue)\\10 (\(statistic.recordDate))
+                Средняя точность: \(statistic.averageValue.asRiddleNum)%
+            """,
             preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Сыграть ещё раз", style: .default) { [weak self] _ in

@@ -19,6 +19,13 @@
 		7970E5FB2A36FA3400E42D26 /* MovieQuizModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E5FA2A36FA3400E42D26 /* MovieQuizModel.swift */; };
 		7970E5FD2A36FA6A00E42D26 /* RiddleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E5FC2A36FA6A00E42D26 /* RiddleFactory.swift */; };
 		7970E5FF2A36FA9A00E42D26 /* MovieRiddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E5FE2A36FA9A00E42D26 /* MovieRiddle.swift */; };
+		7970E6012A3707AF00E42D26 /* StatisticStorageImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E6002A3707AF00E42D26 /* StatisticStorageImpl.swift */; };
+		7970E6032A37941200E42D26 /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E6022A37941200E42D26 /* Data+Extensions.swift */; };
+		7970E6072A37A47900E42D26 /* StatisticDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E6062A37A47900E42D26 /* StatisticDto.swift */; };
+		7970E6092A37A48A00E42D26 /* GameResultDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E6082A37A48A00E42D26 /* GameResultDto.swift */; };
+		7970E60C2A37A4E400E42D26 /* StatisticCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E60B2A37A4E400E42D26 /* StatisticCalculator.swift */; };
+		7970E60E2A37A4F500E42D26 /* StatisticCalculatorImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E60D2A37A4F500E42D26 /* StatisticCalculatorImpl.swift */; };
+		7970E6102A37A54A00E42D26 /* StatisticStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E60F2A37A54A00E42D26 /* StatisticStorage.swift */; };
 		798B2CFB2A365AA3002477D6 /* IMDBGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798B2CFA2A365AA3002477D6 /* IMDBGateway.swift */; };
 		799175472A1FBC7900ACA683 /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 799175452A1FBC7800ACA683 /* YS Display-Bold.ttf */; };
 		799175482A1FBC7900ACA683 /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 799175462A1FBC7800ACA683 /* YS Display-Medium.ttf */; };
@@ -46,6 +53,13 @@
 		7970E5FA2A36FA3400E42D26 /* MovieQuizModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizModel.swift; sourceTree = "<group>"; };
 		7970E5FC2A36FA6A00E42D26 /* RiddleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiddleFactory.swift; sourceTree = "<group>"; };
 		7970E5FE2A36FA9A00E42D26 /* MovieRiddle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRiddle.swift; sourceTree = "<group>"; };
+		7970E6002A3707AF00E42D26 /* StatisticStorageImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticStorageImpl.swift; sourceTree = "<group>"; };
+		7970E6022A37941200E42D26 /* Data+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extensions.swift"; sourceTree = "<group>"; };
+		7970E6062A37A47900E42D26 /* StatisticDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticDto.swift; sourceTree = "<group>"; };
+		7970E6082A37A48A00E42D26 /* GameResultDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResultDto.swift; sourceTree = "<group>"; };
+		7970E60B2A37A4E400E42D26 /* StatisticCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCalculator.swift; sourceTree = "<group>"; };
+		7970E60D2A37A4F500E42D26 /* StatisticCalculatorImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCalculatorImpl.swift; sourceTree = "<group>"; };
+		7970E60F2A37A54A00E42D26 /* StatisticStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticStorage.swift; sourceTree = "<group>"; };
 		798B2CFA2A365AA3002477D6 /* IMDBGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMDBGateway.swift; sourceTree = "<group>"; };
 		799175452A1FBC7800ACA683 /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
 		799175462A1FBC7800ACA683 /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Medium.ttf"; sourceTree = "<group>"; };
@@ -76,15 +90,18 @@
 		792C4F402A27F1B700D54203 /* MovieQuizModel */ = {
 			isa = PBXGroup;
 			children = (
+				7970E6052A37A45300E42D26 /* Dto */,
+				7970E6042A37A43200E42D26 /* Enums */,
 				7970E5FA2A36FA3400E42D26 /* MovieQuizModel.swift */,
 				792C4F412A27F1DE00D54203 /* MovieQuizModelImpl.swift */,
 				7970E5FC2A36FA6A00E42D26 /* RiddleFactory.swift */,
 				792C4F452A27F22800D54203 /* RiddleFactoryImpl.swift */,
 				7970E5FE2A36FA9A00E42D26 /* MovieRiddle.swift */,
 				792C4F472A27F25600D54203 /* MovieRiddleImpl.swift */,
-				792C4F432A27F20800D54203 /* GameState.swift */,
-				792C4F492A27F36000D54203 /* RiddleSign.swift */,
-				792C4F4B2A27F38B00D54203 /* Answer.swift */,
+				7970E60B2A37A4E400E42D26 /* StatisticCalculator.swift */,
+				7970E60D2A37A4F500E42D26 /* StatisticCalculatorImpl.swift */,
+				7970E60F2A37A54A00E42D26 /* StatisticStorage.swift */,
+				7970E6002A3707AF00E42D26 /* StatisticStorageImpl.swift */,
 			);
 			path = MovieQuizModel;
 			sourceTree = "<group>";
@@ -97,6 +114,25 @@
 				792C4F502A27F46700D54203 /* IMDBMovie.swift */,
 			);
 			path = IMDBGateway;
+			sourceTree = "<group>";
+		};
+		7970E6042A37A43200E42D26 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				792C4F4B2A27F38B00D54203 /* Answer.swift */,
+				792C4F492A27F36000D54203 /* RiddleSign.swift */,
+				792C4F432A27F20800D54203 /* GameState.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		7970E6052A37A45300E42D26 /* Dto */ = {
+			isa = PBXGroup;
+			children = (
+				7970E6062A37A47900E42D26 /* StatisticDto.swift */,
+				7970E6082A37A48A00E42D26 /* GameResultDto.swift */,
+			);
+			path = Dto;
 			sourceTree = "<group>";
 		};
 		799175442A1FBC7800ACA683 /* MovieQuizFonts */ = {
@@ -165,6 +201,7 @@
 				AD7AFA542836189F00399704 /* Array+Extensions.swift */,
 				AD77F5732857F8810062FB14 /* Date+Extensions.swift */,
 				792C4F3E2A27E27B00D54203 /* Double+Extensions.swift */,
+				7970E6022A37941200E42D26 /* Data+Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -244,23 +281,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */,
+				7970E6032A37941200E42D26 /* Data+Extensions.swift in Sources */,
+				7970E6072A37A47900E42D26 /* StatisticDto.swift in Sources */,
 				792C4F422A27F1DE00D54203 /* MovieQuizModelImpl.swift in Sources */,
 				792C4F512A27F46700D54203 /* IMDBMovie.swift in Sources */,
 				792C4F4F2A27F43D00D54203 /* IMDBGatewayImpl.swift in Sources */,
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
+				7970E60E2A37A4F500E42D26 /* StatisticCalculatorImpl.swift in Sources */,
 				792C4F482A27F25600D54203 /* MovieRiddleImpl.swift in Sources */,
 				792C4F4A2A27F36000D54203 /* RiddleSign.swift in Sources */,
+				7970E6092A37A48A00E42D26 /* GameResultDto.swift in Sources */,
 				792C4F3F2A27E27B00D54203 /* Double+Extensions.swift in Sources */,
 				7970E5FD2A36FA6A00E42D26 /* RiddleFactory.swift in Sources */,
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
 				7970E5FF2A36FA9A00E42D26 /* MovieRiddle.swift in Sources */,
+				7970E60C2A37A4E400E42D26 /* StatisticCalculator.swift in Sources */,
 				792C4F4C2A27F38B00D54203 /* Answer.swift in Sources */,
 				798B2CFB2A365AA3002477D6 /* IMDBGateway.swift in Sources */,
 				AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */,
 				792C4F442A27F20800D54203 /* GameState.swift in Sources */,
 				792C4F462A27F22800D54203 /* RiddleFactoryImpl.swift in Sources */,
 				AD1ABAB22831907B00B3E448 /* AppDelegate.swift in Sources */,
+				7970E6102A37A54A00E42D26 /* StatisticStorage.swift in Sources */,
 				7970E5FB2A36FA3400E42D26 /* MovieQuizModel.swift in Sources */,
+				7970E6012A3707AF00E42D26 /* StatisticStorageImpl.swift in Sources */,
 				AD1ABAB42831907B00B3E448 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

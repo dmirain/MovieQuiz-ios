@@ -1,12 +1,14 @@
 class MovieQuizModelImpl: MovieQuizModel {
     private let riddleGenerator: RiddleFactory
+    private let statisticCalculator: StatisticCalculator
     private var movieRiddles: [MovieRiddle] = []
     private var correctAnswers: Int = 0
     private var gameIsEnded: Bool = false
     private var currentRiddleIndex: Int = 0
 
-    required init(riddleGenerator: RiddleFactory) {
+    required init(riddleGenerator: RiddleFactory, statisticCalculator: StatisticCalculator) {
         self.riddleGenerator = riddleGenerator
+        self.statisticCalculator = statisticCalculator
     }
     
     func reset() {
@@ -36,7 +38,9 @@ class MovieQuizModelImpl: MovieQuizModel {
         }
         
         guard currentRiddleIndex < movieRiddles.count else {
-            return .gameEnded(correctAnswers: correctAnswers, riddlesCount: movieRiddles.count)
+            let gameResult = GameResultDto(correctAnswers: correctAnswers, riddlesCount: movieRiddles.count)
+            let statistic = statisticCalculator.calculateAndSave(with: gameResult)
+            return .gameEnded(gameResult: gameResult, statistic: statistic)
         }
         
         let currentRiddle = movieRiddles[currentRiddleIndex]
