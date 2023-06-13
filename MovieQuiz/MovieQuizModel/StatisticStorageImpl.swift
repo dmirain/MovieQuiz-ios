@@ -13,7 +13,7 @@ struct StatisticStorageImpl: StatisticStorage {
     }
     
     func set(_ newValue: StatisticDto) {
-        guard let jsonData = Data.toJsonData(from: newValue) else { return }
+        guard let jsonData = Data.toJson(from: newValue) else { return }
         userDefaults.set(jsonData, forKey: storageKey)
     }
 }

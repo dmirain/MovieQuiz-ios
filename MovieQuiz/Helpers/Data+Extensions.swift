@@ -1,6 +1,5 @@
 import Foundation
 
-
 private let decoder = JSONDecoder()
 private let encoder = JSONEncoder()
 
@@ -9,7 +8,7 @@ extension Data {
         return try? decoder.decode(dtoType, from: self)
     }
 
-    static func toJsonData<T: Encodable>(from dto: T) -> Data? {
+    static func toJson<T: Encodable>(from dto: T) -> Data? {
         return try? encoder.encode(dto)
     }
 }

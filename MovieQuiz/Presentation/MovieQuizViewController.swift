@@ -4,6 +4,7 @@ import UIKit
 
 final class MovieQuizViewController: UIViewController {
     private var movieQuiz: MovieQuizModel!
+    private var resultAlertPresenter: ResultAlertPresenter!
     
     @IBOutlet private weak var questionLabel: UILabel!
     @IBOutlet private weak var counterLabel: UILabel!
@@ -21,6 +22,7 @@ final class MovieQuizViewController: UIViewController {
                 storage: StatisticStorageImpl.shared
             )
         )
+        resultAlertPresenter = ResultAlertPresenterImpl(delegate: self)
         super.viewDidLoad()
         setFonts()
         self.nextRiddle()
@@ -46,31 +48,10 @@ final class MovieQuizViewController: UIViewController {
         case .positiveAnswer, .negativeAnswer:
             break
         case .gameEnded(let gameResult, let statistic):
-            showEndGameAlert(gameResult: gameResult, statistic: statistic)
+            resultAlertPresenter.show(with: ResultAlertDto(gameResult: gameResult, statistic: statistic))
         }
         updateImageState(to: state)
         updateButtonsState(to: state)
-    }
-    
-    private func showEndGameAlert(gameResult: GameResultDto, statistic: StatisticDto) {
-        let alert = UIAlertController(
-            title: "Этот раунд окончен!",
-            message: """
-                Ваш результат: \(gameResult.correctAnswers)/\(gameResult.riddlesCount)
-                Количество сыгранных квизов: \(statistic.gamesCount)
-                Рекорд: \(statistic.recordValue)/10 (\(statistic.recordDate.dateTimeString))
-                Средняя точность: \(statistic.averageValue.asRiddleNum)%
-            """,
-            preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "Сыграть ещё раз", style: .default) { [weak self] _ in
-            guard let self = self else { return }
-            self.nextRiddle(restartGame: true)
-        }
-        
-        alert.addAction(action)
-        
-        self.present(alert, animated: true, completion: nil)
     }
     
     private func nextRiddle(restartGame: Bool = false) {
@@ -109,6 +90,15 @@ final class MovieQuizViewController: UIViewController {
     }
 }
 
+extension MovieQuizViewController: ResultAlertPresenterDelegate {
+    func presentAlert(_ alert: UIAlertController) {
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func nextGame() {
+        nextRiddle(restartGame: true)
+    }
+}
 
 fileprivate extension GameState {
     var canAnswer: Bool {
