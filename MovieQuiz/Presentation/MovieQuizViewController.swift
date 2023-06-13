@@ -14,6 +14,13 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private weak var yesButton: UIButton!
     
     override func viewDidLoad() {
+        initialize()
+        super.viewDidLoad()
+        setFonts()
+        self.nextRiddle()
+    }
+    
+    private func initialize() {
         movieQuiz = MovieQuizModelImpl(
             riddleGenerator: RiddleFactoryImpl(
                 imdbGateway: IMDBGatewayImpl()
@@ -23,9 +30,6 @@ final class MovieQuizViewController: UIViewController {
             )
         )
         resultAlertPresenter = ResultAlertPresenterImpl(delegate: self)
-        super.viewDidLoad()
-        setFonts()
-        self.nextRiddle()
     }
     
     private func setFonts() {

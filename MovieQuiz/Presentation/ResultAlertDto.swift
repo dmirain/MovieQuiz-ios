@@ -8,7 +8,7 @@ struct ResultAlertDto {
         """
             Ваш результат: \(gameResult.correctAnswers)/\(gameResult.riddlesCount)
             Количество сыгранных квизов: \(statistic.gamesCount)
-            Рекорд: \(statistic.recordValue)/10 (\(statistic.recordDate.dateTimeString))
+            Рекорд: \(statistic.recordValue)/\(statistic.recordRiddlesCount) (\(statistic.recordDate.dateTimeString))
             Средняя точность: \(statistic.averageValue.asRiddleNum)%
         """
     }

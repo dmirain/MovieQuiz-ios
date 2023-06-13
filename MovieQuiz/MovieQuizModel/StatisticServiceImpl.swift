@@ -12,8 +12,9 @@ struct StatisticServiceImpl: StatisticService {
             let newValue = StatisticDto(
                 gamesCount: 1,
                 recordValue: result.correctAnswers,
+                recordRiddlesCount: result.riddlesCount,
                 recordDate: Date(),
-                averageValue: Double(result.correctAnswers) * 10.0
+                averageValue: result.asPercentage
             )
             storage.set(newValue)
             return newValue
@@ -24,8 +25,9 @@ struct StatisticServiceImpl: StatisticService {
         let newValue = StatisticDto(
             gamesCount: storedValue.gamesCount + 1,
             recordValue: newRecord ? result.correctAnswers : storedValue.recordValue,
+            recordRiddlesCount: newRecord ? result.riddlesCount : storedValue.recordRiddlesCount,
             recordDate: newRecord ? Date() : storedValue.recordDate,
-            averageValue: (Double(result.correctAnswers) * 10.0 + storedValue.averageValue) / 2.0
+            averageValue: (result.asPercentage + storedValue.averageValue) / 2.0
         )
         storage.set(newValue)
         return newValue
