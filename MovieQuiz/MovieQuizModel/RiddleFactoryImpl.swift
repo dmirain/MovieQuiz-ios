@@ -1,6 +1,6 @@
 import UIKit
 
-struct RiddleGenerator {
+struct RiddleFactoryImpl: RiddleFactory {
     private let imdbGateway: IMDBGateway
     
     init(imdbGateway: IMDBGateway) {
@@ -10,7 +10,7 @@ struct RiddleGenerator {
     func generate() -> [MovieRiddle] {
         let movies = imdbGateway.movies()
         return movies.map { movie in
-            MovieRiddle(
+            MovieRiddleImpl(
                 name: movie.name,
                 rating: movie.rating,
                 image: UIImage(named: movie.name) ?? UIImage(),
