@@ -1,4 +1,4 @@
 protocol RiddleFactory {
-    init(imdbGateway: IMDBGateway)
-    func generate() -> [MovieRiddle]
+    init(movieHubGateway: MovieHubGateway)
+    func generate(handler: @escaping (Result<[MovieRiddleImpl], NetworkError>) -> Void)
 }

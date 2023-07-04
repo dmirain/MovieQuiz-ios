@@ -1,30 +1,40 @@
 import UIKit
 
 struct RiddleFactoryImpl: RiddleFactory {
-    private let imdbGateway: IMDBGateway
-    
-    init(imdbGateway: IMDBGateway) {
-        self.imdbGateway = imdbGateway
+    private let movieHubGateway: MovieHubGateway
+
+    init(movieHubGateway: MovieHubGateway) {
+        self.movieHubGateway = movieHubGateway
     }
-    
-    func generate() -> [MovieRiddle] {
-        let movies = imdbGateway.movies()
-        return movies.map { movie in
+
+    func generate(handler: @escaping (Result<[MovieRiddleImpl], NetworkError>) -> Void) {
+        movieHubGateway.movies { result in
+            switch result {
+            case let .success(movies):
+                handler(.success(convertResult(movies: movies)))
+            case let .failure(error):
+                handler(.failure(error))
+            }
+        }
+    }
+
+    private func convertResult(movies: [MovieData]) -> [MovieRiddleImpl] {
+        movies.map { movie in
             MovieRiddleImpl(
                 name: movie.name,
                 rating: movie.rating,
-                image: UIImage(named: movie.name) ?? UIImage(),
+                image: UIImage(data: movie.imageData) ?? UIImage(),
                 riddleValue: generateValue(),
                 riddleSign: generateSign()
             )
         }
     }
-    
+
     private func generateValue() -> Double {
-        return (Double.random(in: 4...10) * 10).rounded() / 10
+        (Double.random(in: 4...10) * 10).rounded() / 10
     }
-    
+
     private func generateSign() -> RiddleSign {
-        return Bool.random() ? RiddleSign.more : RiddleSign.less
+        Bool.random() ? RiddleSign.more : RiddleSign.less
     }
 }
