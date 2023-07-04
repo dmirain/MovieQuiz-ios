@@ -2,11 +2,11 @@ import Foundation
 
 struct StatisticServiceImpl: StatisticService {
     private let storage: StatisticStorage
-    
+
     init(storage: StatisticStorage) {
         self.storage = storage
     }
-    
+
     func calculateAndSave(with result: GameResultDto) -> StatisticDto {
         guard let storedValue = storage.get() else {
             let newValue = StatisticDto(
@@ -21,7 +21,7 @@ struct StatisticServiceImpl: StatisticService {
         }
 
         let newRecord = storedValue.recordValue < result.correctAnswers
-        
+
         let newValue = StatisticDto(
             gamesCount: storedValue.gamesCount + 1,
             recordValue: newRecord ? result.correctAnswers : storedValue.recordValue,

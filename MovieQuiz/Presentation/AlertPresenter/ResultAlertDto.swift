@@ -1,7 +1,8 @@
-struct ResultAlertDto {
+struct ResultAlertDto: AlertDto {
     private let gameResult: GameResultDto
     private let statistic: StatisticDto
 
+    let action: AlertAction = .reset
     let headerTitle = "Этот раунд окончен!"
     let actionTitle = "Сыграть ещё раз"
     var message: String {
