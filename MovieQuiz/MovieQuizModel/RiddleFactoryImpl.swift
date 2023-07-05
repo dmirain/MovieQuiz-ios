@@ -31,7 +31,7 @@ struct RiddleFactoryImpl: RiddleFactory {
     }
 
     private func generateValue() -> Double {
-        (Double.random(in: 4...10) * 10).rounded() / 10
+        (Double.random(in: 6...10) * 10).rounded() / 10
     }
 
     private func generateSign() -> RiddleSign {

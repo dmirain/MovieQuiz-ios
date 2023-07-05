@@ -15,11 +15,12 @@ final class MovieQuizModelImpl: MovieQuizModel {
         self.statisticService = statisticService
     }
 
-    func reset() {
+    func startNewGame() {
         correctAnswers = 0
         currentRiddleNumber = 0
         movieRiddles = []
         error = nil
+        nextGameState()
     }
 
     func checkAnswer(_ answer: Answer) {
@@ -32,9 +33,14 @@ final class MovieQuizModelImpl: MovieQuizModel {
         } else {
             delegat.acceptNextGameState(state: .negativeAnswer)
         }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            guard let self else { return }
+            self.nextGameState()
+        }
     }
 
-    func nextGameState() {
+    private func nextGameState() {
         guard let delegat else { return }
 
         if let error {

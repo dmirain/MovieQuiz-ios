@@ -19,10 +19,9 @@ final class MovieQuizViewController: UIViewController {
         initialize()
         super.viewDidLoad()
         setFonts()
-        nextRiddle()
+        movieQuiz.startNewGame()
     }
 
-    // Настроил swiftlint и он предлагае переместить эти методы сюда
     @IBAction private func noButtonClicked() {
         performResultButtonClick(with: .no)
     }
@@ -76,13 +75,8 @@ private extension MovieQuizViewController {
         updateActivityIndicatorState(to: state)
     }
 
-    func nextRiddle() {
-        movieQuiz.nextGameState()
-    }
-
-    func reset() {
-        movieQuiz.reset()
-        movieQuiz.nextGameState()
+    func performResultButtonClick(with answer: Answer) {
+        movieQuiz.checkAnswer(answer)
     }
 
     func updateImageState(to state: GameState) {
@@ -102,7 +96,7 @@ private extension MovieQuizViewController {
         } else {
             activityIndicator.stopAnimating()
             UIView.animate(
-                withDuration: 0.3,
+                withDuration: 0.5,
                 animations: { [weak self] in
                     guard let self else { return }
                     self.blur.alpha = 0
@@ -118,14 +112,6 @@ private extension MovieQuizViewController {
     func updateButtonsState(to state: GameState) {
         noButton.isEnabled = state.canAnswer
         yesButton.isEnabled = state.canAnswer
-    }
-
-    func performResultButtonClick(with answer: Answer) {
-        movieQuiz.checkAnswer(answer)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            guard let self else { return }
-            self.nextRiddle()
-        }
     }
 }
 
@@ -143,7 +129,7 @@ extension MovieQuizViewController: AlertPresenterDelegate {
     func performAlertAction(action: AlertAction) {
         switch action {
         case .reset:
-            reset()
+            movieQuiz.startNewGame()
         }
     }
 }
