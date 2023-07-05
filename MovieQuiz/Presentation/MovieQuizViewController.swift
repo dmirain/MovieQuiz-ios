@@ -36,7 +36,6 @@ private extension MovieQuizViewController {
         movieQuiz = MovieQuizModelImpl(
             delegat: self,
             riddleGenerator: RiddleFactoryImpl(
-//                movieHubGateway: IMDBGatewayImpl()
                 movieHubGateway: KPGatewayImpl(
                     httpClient: NetworkClient()
                 )
@@ -94,12 +93,25 @@ private extension MovieQuizViewController {
     }
 
     func updateActivityIndicatorState(to state: GameState) {
-        blur.isHidden = !state.loadingActive
         activityIndicator.isHidden = !state.loadingActive
+
         if state.loadingActive {
             activityIndicator.startAnimating()
+            blur.alpha = 1
+            blur.isHidden = false
         } else {
             activityIndicator.stopAnimating()
+            UIView.animate(
+                withDuration: 0.3,
+                animations: { [weak self] in
+                    guard let self else { return }
+                    self.blur.alpha = 0
+                },
+                completion: { [weak self] _ in
+                    guard let self else { return }
+                    self.blur.isHidden = true
+                }
+            )
         }
     }
 
