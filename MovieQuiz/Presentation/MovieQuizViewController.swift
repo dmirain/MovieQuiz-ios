@@ -13,6 +13,7 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private weak var noButton: UIButton!
     @IBOutlet private weak var yesButton: UIButton!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var blur: UIVisualEffectView!
 
     override func viewDidLoad() {
         initialize()
@@ -93,6 +94,7 @@ private extension MovieQuizViewController {
     }
 
     func updateActivityIndicatorState(to state: GameState) {
+        blur.isHidden = !state.loadingActive
         activityIndicator.isHidden = !state.loadingActive
         if state.loadingActive {
             activityIndicator.startAnimating()
@@ -146,9 +148,9 @@ fileprivate extension GameState {
 
     var loadingActive: Bool {
         switch self {
-        case .loadingData, .loadingError:
+        case .loadingData, .loadingError, .gameEnded:
             return true
-        case .nextRiddle, .negativeAnswer, .positiveAnswer, .gameEnded:
+        case .nextRiddle, .negativeAnswer, .positiveAnswer:
             return false
         }
     }
