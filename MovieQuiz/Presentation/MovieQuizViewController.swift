@@ -6,6 +6,10 @@ final class MovieQuizViewController: UIViewController {
     private var movieQuiz: MovieQuizModel!
     private var alertPresenter: AlertPresenter!
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+
     @IBOutlet private weak var questionLabel: UILabel!
     @IBOutlet private weak var counterLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
