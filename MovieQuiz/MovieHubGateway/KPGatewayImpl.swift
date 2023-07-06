@@ -14,8 +14,8 @@ struct KPGatewayImpl: MovieHubGateway {
 
         ]
         var request = URLRequest(url: components.url!)
-        request.addValue("TOKEN", forHTTPHeaderField: "X-API-KEY")
-        request.timeoutInterval = 10 // seconds
+        request.timeoutInterval = 1 // seconds
+        request.addValue("5TN5HZK-6ATMVTM-GC2SEBP-KFDNH4Q", forHTTPHeaderField: "X-API-KEY")
         return request
     }
 
