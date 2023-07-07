@@ -1,7 +1,6 @@
 protocol MovieQuizModel {
-    init(riddleGenerator: RiddleFactory, statisticService: StatisticService)
-    
-    func reset()
-    func checkAnswer(_ answer: Answer) -> GameState
-    func nextGameState() -> GameState
+    init(delegat: MovieQuizModelDelegat, riddleGenerator: RiddleFactory, statisticService: StatisticService)
+
+    func startNewGame()
+    func checkAnswer(_ answer: Answer)
 }

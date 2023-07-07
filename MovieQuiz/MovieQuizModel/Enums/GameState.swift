@@ -3,4 +3,6 @@ enum GameState {
     case positiveAnswer
     case negativeAnswer
     case gameEnded(gameResult: GameResultDto, statistic: StatisticDto)
+    case loadingData
+    case loadingError(error: NetworkError)
 }

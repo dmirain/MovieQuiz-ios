@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -39,7 +39,7 @@
                                     </stackView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qzg-Ri-j01">
                                         <rect key="frame" x="0.0" y="58.5" width="374" height="561"/>
-                                        <color key="backgroundColor" name="YP White"/>
+                                        <color key="backgroundColor" name="YP Black"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="qzg-Ri-j01" secondAttribute="height" multiplier="2:3" id="AA7-gt-kYR"/>
                                         </constraints>
@@ -103,6 +103,17 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="INW-qT-WkE" userLabel="Blur">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="v7h-dS-Ph0">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="regular"/>
+                            </visualEffectView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="B55-rq-1Ro">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black"/>
@@ -110,10 +121,18 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="jek-en-ZpY" secondAttribute="top" constant="-10" id="BeN-mf-ov1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jek-en-ZpY" secondAttribute="bottom" id="EE3-Pz-oI5"/>
                             <constraint firstItem="jek-en-ZpY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="P3I-G3-wUT"/>
+                            <constraint firstAttribute="trailing" secondItem="INW-qT-WkE" secondAttribute="trailing" id="TIU-hH-0BM"/>
+                            <constraint firstItem="B55-rq-1Ro" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="etC-P8-C9z"/>
+                            <constraint firstItem="INW-qT-WkE" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="shn-c6-4zo"/>
+                            <constraint firstItem="B55-rq-1Ro" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tzS-ZD-Sby"/>
+                            <constraint firstItem="INW-qT-WkE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vq6-u6-VGf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jek-en-ZpY" secondAttribute="trailing" constant="20" id="vyI-vd-8VT"/>
+                            <constraint firstAttribute="top" secondItem="INW-qT-WkE" secondAttribute="top" id="wQs-mV-TsF"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="B55-rq-1Ro" id="srm-J0-Mxz"/>
+                        <outlet property="blur" destination="INW-qT-WkE" id="r9M-KB-R1z"/>
                         <outlet property="counterLabel" destination="BMM-iU-4fa" id="NAU-sN-plG"/>
                         <outlet property="imageView" destination="qzg-Ri-j01" id="EhH-Fc-ejD"/>
                         <outlet property="noButton" destination="LGs-sG-V8W" id="gan-oM-6L0"/>
