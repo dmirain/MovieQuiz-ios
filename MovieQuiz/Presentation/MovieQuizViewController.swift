@@ -138,7 +138,7 @@ extension MovieQuizViewController: AlertPresenterDelegate {
     }
 }
 
-fileprivate extension GameState {
+private extension GameState {
     var canAnswer: Bool {
         switch self {
         case .nextRiddle:
