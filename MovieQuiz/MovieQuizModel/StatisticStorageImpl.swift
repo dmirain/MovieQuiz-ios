@@ -6,6 +6,8 @@ struct StatisticStorageImpl: StatisticStorage {
     private let storageKey = "statisticData"
     private let userDefaults = UserDefaults.standard
 
+    private init() {}
+
     func get() -> StatisticDto? {
         guard let jsonData = userDefaults.data(forKey: storageKey) else { return nil }
         guard let dto = jsonData.fromJson(to: StatisticDto.self) else { return nil }

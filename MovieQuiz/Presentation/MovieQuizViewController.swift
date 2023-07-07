@@ -40,14 +40,14 @@ private extension MovieQuizViewController {
             delegat: self,
             riddleGenerator: RiddleFactoryImpl(
                 movieHubGateway: KPGatewayImpl(
-                    httpClient: NetworkClient()
+                    httpClient: NetworkClientImpl()
                 )
             ),
             statisticService: StatisticServiceImpl(
                 storage: StatisticStorageImpl.shared
             )
         )
-        alertPresenter = ResultAlertPresenterImpl(delegate: self)
+        alertPresenter = AlertPresenterImpl(delegate: self)
     }
 
     func setFonts() {

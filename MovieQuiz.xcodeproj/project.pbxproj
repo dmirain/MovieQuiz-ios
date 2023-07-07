@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		790600282A4888E900AD0E62 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790600272A4888E900AD0E62 /* NetworkClient.swift */; };
+		790600282A4888E900AD0E62 /* NetworkClientImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790600272A4888E900AD0E62 /* NetworkClientImpl.swift */; };
 		7906002A2A488DCA00AD0E62 /* KPMovieDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790600292A488DCA00AD0E62 /* KPMovieDto.swift */; };
 		7908FC0F2A51CC2500FEFA9E /* KPGatewayImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7908FC0E2A51CC2500FEFA9E /* KPGatewayImpl.swift */; };
 		7908FC112A5219E700FEFA9E /* MovieQuizModelDelegat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7908FC102A5219E700FEFA9E /* MovieQuizModelDelegat.swift */; };
@@ -50,7 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		790600272A4888E900AD0E62 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		790600272A4888E900AD0E62 /* NetworkClientImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientImpl.swift; sourceTree = "<group>"; };
 		790600292A488DCA00AD0E62 /* KPMovieDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPMovieDto.swift; sourceTree = "<group>"; };
 		7908FC0E2A51CC2500FEFA9E /* KPGatewayImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPGatewayImpl.swift; sourceTree = "<group>"; };
 		7908FC102A5219E700FEFA9E /* MovieQuizModelDelegat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizModelDelegat.swift; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 				AD77F5732857F8810062FB14 /* Date+Extensions.swift */,
 				792C4F3E2A27E27B00D54203 /* Double+Extensions.swift */,
 				7970E6022A37941200E42D26 /* Data+Extensions.swift */,
-				790600272A4888E900AD0E62 /* NetworkClient.swift */,
+				790600272A4888E900AD0E62 /* NetworkClientImpl.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -348,7 +348,7 @@
 				7908FC112A5219E700FEFA9E /* MovieQuizModelDelegat.swift in Sources */,
 				792C4F482A27F25600D54203 /* MovieRiddleImpl.swift in Sources */,
 				7970E6142A37B16400E42D26 /* AlertPresenterImpl.swift in Sources */,
-				790600282A4888E900AD0E62 /* NetworkClient.swift in Sources */,
+				790600282A4888E900AD0E62 /* NetworkClientImpl.swift in Sources */,
 				792C4F4A2A27F36000D54203 /* RiddleSign.swift in Sources */,
 				7908FC0F2A51CC2500FEFA9E /* KPGatewayImpl.swift in Sources */,
 				7970E6092A37A48A00E42D26 /* GameResultDto.swift in Sources */,

@@ -19,7 +19,11 @@ struct KPGatewayImpl: MovieHubGateway {
         return request
     }
 
-    let httpClient: NetworkClient
+    private let httpClient: NetworkClient
+
+    init(httpClient: NetworkClient) {
+        self.httpClient = httpClient
+    }
 
     func movies(handler: @escaping (Result<[MovieData], NetworkError>) -> Void) {
         httpClient.fetch(request: request) { result in
@@ -36,6 +40,7 @@ struct KPGatewayImpl: MovieHubGateway {
         guard let moviesDto = data.fromJson(to: KPMovieDto.self) else {
             return .failure(.parseError)
         }
+        guard !moviesDto.docs.isEmpty else { return .failure(.emptyData)}
         return .success(moviesDto.docs.shuffled().prefix(10).map { $0.toMovieData() })
     }
 }

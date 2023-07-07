@@ -1,5 +1,9 @@
 import Foundation
 
+protocol NetworkClient {
+    func fetch(request: URLRequest, handler: @escaping (Result<Data, NetworkError>) -> Void)
+}
+
 enum NetworkError: Error {
     case connectError(innerError: Error)
     case codeError
@@ -18,10 +22,9 @@ enum NetworkError: Error {
             return "Ошибка разбора данных"
         }
     }
-
 }
 
-struct NetworkClient {
+struct NetworkClientImpl: NetworkClient {
     func fetch(request: URLRequest, handler: @escaping (Result<Data, NetworkError>) -> Void) {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             // Проверяем, пришла ли ошибка

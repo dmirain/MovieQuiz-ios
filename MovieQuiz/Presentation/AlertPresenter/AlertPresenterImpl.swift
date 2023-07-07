@@ -1,6 +1,6 @@
 import UIKit
 
-final class ResultAlertPresenterImpl: AlertPresenter {
+final class AlertPresenterImpl: AlertPresenter {
     private weak var delegate: AlertPresenterDelegate?
 
     required init(delegate: AlertPresenterDelegate) {

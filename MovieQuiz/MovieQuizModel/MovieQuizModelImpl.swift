@@ -1,7 +1,7 @@
 import Foundation
 
 final class MovieQuizModelImpl: MovieQuizModel {
-    private weak var delegat: MovieQuizModelDelegat?
+    private weak var delegate: MovieQuizModelDelegat?
     private let riddleGenerator: RiddleFactory
     private let statisticService: StatisticService
     private var movieRiddles: [MovieRiddle] = []
@@ -10,7 +10,7 @@ final class MovieQuizModelImpl: MovieQuizModel {
     private var error: NetworkError?
 
     required init(delegat: MovieQuizModelDelegat, riddleGenerator: RiddleFactory, statisticService: StatisticService) {
-        self.delegat = delegat
+        self.delegate = delegat
         self.riddleGenerator = riddleGenerator
         self.statisticService = statisticService
     }
@@ -25,13 +25,13 @@ final class MovieQuizModelImpl: MovieQuizModel {
 
     func checkAnswer(_ answer: Answer) {
         assert(!movieRiddles.isEmpty)
-        guard let delegat else { return }
+        guard let delegate else { return }
 
         if movieRiddles[currentRiddleNumber - 1].correctAnswer == answer {
             correctAnswers += 1
-            delegat.acceptNextGameState(state: .positiveAnswer)
+            delegate.acceptNextGameState(state: .positiveAnswer)
         } else {
-            delegat.acceptNextGameState(state: .negativeAnswer)
+            delegate.acceptNextGameState(state: .negativeAnswer)
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
@@ -41,10 +41,10 @@ final class MovieQuizModelImpl: MovieQuizModel {
     }
 
     private func nextGameState() {
-        guard let delegat else { return }
+        guard let delegate else { return }
 
         if let error {
-            delegat.acceptNextGameState(state: .loadingError(error: error))
+            delegate.acceptNextGameState(state: .loadingError(error: error))
             return
         }
 
@@ -64,7 +64,7 @@ final class MovieQuizModelImpl: MovieQuizModel {
                     self.nextGameState()
                 }
             }
-            self.delegat?.acceptNextGameState(state: .loadingData)
+            self.delegate?.acceptNextGameState(state: .loadingData)
             return
         }
 
@@ -73,12 +73,12 @@ final class MovieQuizModelImpl: MovieQuizModel {
         guard currentRiddleNumber <= movieRiddles.count else {
             let gameResult = GameResultDto(correctAnswers: correctAnswers, riddlesCount: movieRiddles.count)
             let statistic = statisticService.calculateAndSave(with: gameResult)
-            delegat.acceptNextGameState(state: .gameEnded(gameResult: gameResult, statistic: statistic))
+            delegate.acceptNextGameState(state: .gameEnded(gameResult: gameResult, statistic: statistic))
             return
         }
 
         let currentRiddle = movieRiddles[currentRiddleNumber - 1]
-        delegat.acceptNextGameState(
+        delegate.acceptNextGameState(
             state: .nextRiddle(
                 riddle: currentRiddle,
                 riddleNum: currentRiddleNumber,
