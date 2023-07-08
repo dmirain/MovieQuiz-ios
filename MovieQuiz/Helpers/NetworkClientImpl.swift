@@ -1,21 +1,21 @@
 import Foundation
 
 protocol NetworkClient {
-    func fetch(request: URLRequest, handler: @escaping (Result<Data, NetworkError>) -> Void)
+    func fetch(request: URLRequest) async throws -> Data
 }
 
 enum NetworkError: Error {
-    case connectError(innerError: Error)
-    case codeError
+    case connectError(code: URLError.Code)
+    case codeError(code: Int)
     case emptyData
     case parseError
 
     func asText() -> String {
         switch self {
-        case .connectError:
-            return "Ошибка соединения"
-        case .codeError:
-            return "Сервер ответил ошибкой"
+        case let .connectError(code):
+            return "Ошибка соединения: \(code.rawValue)"
+        case let .codeError(code):
+            return "Сервер ответил ошибкой: \(code)"
         case .emptyData:
             return "Сервер не прислал данные"
         case .parseError:
@@ -25,30 +25,18 @@ enum NetworkError: Error {
 }
 
 struct NetworkClientImpl: NetworkClient {
-    func fetch(request: URLRequest, handler: @escaping (Result<Data, NetworkError>) -> Void) {
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            // Проверяем, пришла ли ошибка
-            if let error {
-                handler(.failure(.connectError(innerError: error)))
-                return
-            }
+    func fetch(request: URLRequest) async throws -> Data {
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
 
-            // Проверяем, что нам пришёл успешный код ответа
             if let response = response as? HTTPURLResponse,
                 response.statusCode < 200 || response.statusCode >= 300 {
-                handler(.failure(.codeError))
-                return
+                throw NetworkError.codeError(code: response.statusCode)
             }
 
-            // Возвращаем данные
-            guard let data else {
-                handler(.failure(.emptyData))
-                return
-            }
-
-            handler(.success(data))
+            return data
+        } catch let error as URLError {
+            throw NetworkError.connectError(code: error.code)
         }
-
-        task.resume()
     }
 }

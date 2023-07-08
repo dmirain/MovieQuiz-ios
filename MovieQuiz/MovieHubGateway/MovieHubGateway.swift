@@ -1,3 +1,3 @@
 protocol MovieHubGateway {
-    func movies(handler: @escaping (Result<[MovieData], NetworkError>) -> Void)
+    func movies() async throws -> [MovieData]
 }

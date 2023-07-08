@@ -14,7 +14,7 @@ struct KPGatewayImpl: MovieHubGateway {
 
         ]
         var request = URLRequest(url: components.url!)
-        request.timeoutInterval = 1 // seconds
+        request.timeoutInterval = 2 // seconds
         request.addValue("5TN5HZK-6ATMVTM-GC2SEBP-KFDNH4Q", forHTTPHeaderField: "X-API-KEY")
         return request
     }
@@ -25,22 +25,57 @@ struct KPGatewayImpl: MovieHubGateway {
         self.httpClient = httpClient
     }
 
-    func movies(handler: @escaping (Result<[MovieData], NetworkError>) -> Void) {
-        httpClient.fetch(request: request) { result in
-            switch result {
-            case let .success(data):
-                handler(convertData(data: data))
-            case let .failure(error):
-                handler(.failure(error))
-            }
-        }
+    func movies() async throws -> [MovieData] {
+        let moviesRawData = try await httpClient.fetch(request: request)
+        return try await convertData(data: moviesRawData)
     }
 
-    private func convertData(data: Data) -> Result<[MovieData], NetworkError> {
+    private func convertData(data: Data) async throws -> [MovieData] {
         guard let moviesDto = data.fromJson(to: KPMovieDto.self) else {
-            return .failure(.parseError)
+            throw NetworkError.parseError
         }
-        guard !moviesDto.docs.isEmpty else { return .failure(.emptyData)}
-        return .success(moviesDto.docs.shuffled().prefix(10).map { $0.toMovieData() })
+        guard !moviesDto.docs.isEmpty else { throw NetworkError.emptyData }
+
+        let moviesWithUrls = Array(
+            moviesDto.docs
+            .shuffled()
+            .filter { $0.url != nil }
+            .prefix(10)
+        )
+
+        guard moviesWithUrls.count == 10 else { throw NetworkError.emptyData }
+
+        return await convertMovieItems(moviesWithUrls)
+    }
+
+    private func convertMovieItems(_ movieItems: [KPMovieItem]) async -> [MovieData] {
+        var result = [MovieData]()
+        await withTaskGroup(of: MovieData.self) { group in
+            movieItems.forEach { movieItem in
+                group.addTask {
+                    let imageData = await movieItem.loadImage(httpClient: httpClient)
+                    return MovieData(
+                        name: movieItem.name,
+                        rating: movieItem.rating.imdb,
+                        imageData: imageData
+                    )
+                }
+            }
+
+            for await movieData in group {
+                result.append(movieData)
+            }
+        }
+        return result
+    }
+}
+
+private extension KPMovieItem {
+    var url: URL? { URL(string: poster.previewUrl) }
+
+    func loadImage(httpClient: NetworkClient) async -> Data? {
+        var imageRequest = URLRequest(url: url!)
+        imageRequest.timeoutInterval = 1
+        return try? await httpClient.fetch(request: imageRequest)
     }
 }

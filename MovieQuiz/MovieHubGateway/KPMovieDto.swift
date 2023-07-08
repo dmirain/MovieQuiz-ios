@@ -41,13 +41,3 @@ struct KPMoviePoster: Decodable {
 struct KPMovieDto: Decodable {
     let docs: [KPMovieItem]
 }
-
-extension KPMovieItem {
-    func toMovieData() -> MovieData {
-        MovieData(
-            name: self.name,
-            rating: self.rating.imdb,
-            imageData: (try? Data(contentsOf: URL(string: self.poster.previewUrl)!)) ?? Data()
-        )
-    }
-}

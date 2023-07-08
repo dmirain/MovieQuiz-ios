@@ -7,15 +7,9 @@ struct RiddleFactoryImpl: RiddleFactory {
         self.movieHubGateway = movieHubGateway
     }
 
-    func generate(handler: @escaping (Result<[MovieRiddleImpl], NetworkError>) -> Void) {
-        movieHubGateway.movies { result in
-            switch result {
-            case let .success(movies):
-                handler(.success(convertResult(movies: movies)))
-            case let .failure(error):
-                handler(.failure(error))
-            }
-        }
+    func generate() async throws -> [MovieRiddle] {
+        let moviesData = try await movieHubGateway.movies()
+        return convertResult(movies: moviesData)
     }
 
     private func convertResult(movies: [MovieData]) -> [MovieRiddleImpl] {
@@ -23,7 +17,7 @@ struct RiddleFactoryImpl: RiddleFactory {
             MovieRiddleImpl(
                 name: movie.name,
                 rating: movie.rating,
-                image: UIImage(data: movie.imageData) ?? UIImage(),
+                image: movie.imageData == nil ? UIImage() : UIImage(data: movie.imageData!) ?? UIImage(),
                 riddleValue: generateValue(),
                 riddleSign: generateSign()
             )

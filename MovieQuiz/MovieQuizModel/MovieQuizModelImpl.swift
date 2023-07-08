@@ -50,20 +50,21 @@ final class MovieQuizModelImpl: MovieQuizModel {
 
         if movieRiddles.isEmpty {
             assert(currentRiddleNumber == 0)
-            riddleGenerator.generate { [weak self] result in
-                guard let self else { return }
 
-                switch result {
-                case let .success(riddles):
-                    self.movieRiddles = riddles
-                case let .failure(error):
+            Task {
+                do {
+                    self.movieRiddles = try await riddleGenerator.generate()
+                } catch let error as NetworkError {
                     self.error = error
+                } catch let error {
+                    fatalError("Неизвестное иcключение \(error.localizedDescription)")
                 }
-                DispatchQueue.main.async { [weak self] in
-                    guard let self else { return }
+
+                Task { @MainActor in
                     self.nextGameState()
                 }
             }
+
             self.delegate?.acceptNextGameState(state: .loadingData)
             return
         }
