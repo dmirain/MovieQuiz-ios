@@ -3,8 +3,9 @@ import UIKit
 // MARK: - MovieQuizViewController
 
 final class MovieQuizViewController: UIViewController {
-    private var movieQuiz: MovieQuizModel!
-    private var alertPresenter: AlertPresenter!
+    private var movieQuiz: MovieQuizModel
+    private var alertPresenter: AlertPresenter
+    private var mainPresenter: MovieQuizPresenter
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
@@ -19,25 +20,12 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var blur: UIVisualEffectView!
 
-    override func viewDidLoad() {
-        initialize()
-        super.viewDidLoad()
-        setFonts()
-        movieQuiz.startNewGame()
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        fatalError("init (nibName: bundle:) has not been implemented")
     }
 
-    @IBAction private func noButtonClicked() {
-        performResultButtonClick(with: .no)
-    }
-    @IBAction private func yesButtonClicked() {
-        performResultButtonClick(with: .yes)
-    }
-}
-
-private extension MovieQuizViewController {
-    func initialize() {
+    required init?(coder: NSCoder) {
         movieQuiz = MovieQuizModelImpl(
-            delegate: self,
             riddleGenerator: RiddleFactoryImpl(
                 movieHubGateway: KPGatewayImpl(
                     httpClient: NetworkClientImpl()
@@ -47,10 +35,32 @@ private extension MovieQuizViewController {
                 storage: StatisticStorageImpl.shared
             )
         )
-        alertPresenter = AlertPresenterImpl(delegate: self)
+        alertPresenter = AlertPresenterImpl()
+        mainPresenter = MovieQuizPresenterImpl()
+
+        super.init(coder: coder)
+
+        movieQuiz.delegate = self
+        alertPresenter.delegate = self
+        mainPresenter.viewController = self
     }
 
-    func setFonts() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setFonts()
+        activityIndicator.hidesWhenStopped = true
+        movieQuiz.startNewGame()
+    }
+
+    @IBAction private func noButtonClicked() {
+        movieQuiz.checkAnswer(.no)
+    }
+
+    @IBAction private func yesButtonClicked() {
+        movieQuiz.checkAnswer(.yes)
+    }
+
+    private func setFonts() {
         let mediumFont = UIFont(name: "YSDisplay-Medium", size: 20)!
         let boldFont = UIFont(name: "YSDisplay-Bold", size: 23)!
 
@@ -60,72 +70,71 @@ private extension MovieQuizViewController {
         noButton.titleLabel?.font = mediumFont
         yesButton.titleLabel?.font = mediumFont
     }
+}
 
-    func updateViewState(to state: GameState) {
-        switch state {
-        case let .nextRiddle(currentRiddle, riddleNum, riddleCount):
-            counterLabel.text = "\(riddleNum)/\(riddleCount)"
-            imageView.image = currentRiddle.image
-            textLabel.text = currentRiddle.text
-        case let .gameEnded(gameResult, statistic):
-            alertPresenter.show(with: ResultAlertDto(gameResult: gameResult, statistic: statistic))
-        case let .loadingError(error):
-            alertPresenter.show(with: ErrorAlertDto(error: error))
-        case .positiveAnswer, .negativeAnswer, .loadingData:
-            break
-        }
-        updateImageState(to: state)
-        updateButtonsState(to: state)
-        updateActivityIndicatorState(to: state)
+extension MovieQuizViewController: MovieQuizPresenterDelegate {
+
+    func showNextRiddle(riddle: MovieRiddle, num: Int, count: Int) {
+        counterLabel.text = "\(num)/\(count)"
+        imageView.image = riddle.image
+        textLabel.text = riddle.text
+
+        noButton.isEnabled = true
+        yesButton.isEnabled = true
+
+        imageView.layer.borderColor = UIColor.ypBlack.cgColor
+        imageView.layer.borderWidth = 0
     }
 
-    func performResultButtonClick(with answer: Answer) {
-        movieQuiz.checkAnswer(answer)
+    func showEndGame(result: GameResultDto, statistic: StatisticDto) {
+        alertPresenter.show(with: ResultAlertDto(gameResult: result, statistic: statistic))
     }
 
-    func updateImageState(to state: GameState) {
-        if let borderColor = state.imageBorderColor {
-            imageView.layer.borderColor = borderColor
-        }
-        imageView.layer.borderWidth = state.imageBorderWidth
+    func showError(error: NetworkError) {
+        alertPresenter.show(with: ErrorAlertDto(error: error))
     }
 
-    func updateActivityIndicatorState(to state: GameState) {
-        activityIndicator.isHidden = !state.loadingActive
-
-        if state.loadingActive {
-            activityIndicator.startAnimating()
-            blur.alpha = 1
-            blur.isHidden = false
-        } else {
-            activityIndicator.stopAnimating()
-            UIView.animate(
-                withDuration: 0.5,
-                animations: { [weak self] in
-                    guard let self else { return }
-                    self.blur.alpha = 0
-                },
-                completion: { [weak self] _ in
-                    guard let self else { return }
-                    self.blur.isHidden = true
-                }
-            )
-        }
+    func showPositiveAnswer() {
+        imageView.layer.borderColor = UIColor.ypGreen.cgColor
+        imageView.layer.borderWidth = 8
     }
 
-    func updateButtonsState(to state: GameState) {
-        noButton.isEnabled = state.canAnswer
-        yesButton.isEnabled = state.canAnswer
+    func showNegativeAnswer() {
+        imageView.layer.borderColor = UIColor.ypRed.cgColor
+        imageView.layer.borderWidth = 8
+    }
+
+    func showSplashScrean() {
+        activityIndicator.startAnimating()
+        blur.alpha = 1
+        blur.isHidden = false
+    }
+
+    func hideSplashScrean() {
+        activityIndicator.stopAnimating()
+        UIView.animate(
+            withDuration: 0.5,
+            animations: { [weak self] in
+                guard let self else { return }
+                self.blur.alpha = 0
+            },
+            completion: { [weak self] _ in
+                guard let self else { return }
+                self.blur.isHidden = true
+            }
+        )
     }
 }
 
 extension MovieQuizViewController: MovieQuizModelDelegat {
+
     func acceptNextGameState(state: GameState) {
-        updateViewState(to: state)
+        mainPresenter.updateViewState(to: state)
     }
 }
 
 extension MovieQuizViewController: AlertPresenterDelegate {
+
     func presentAlert(_ alert: UIAlertController) {
         present(alert, animated: true, completion: nil)
     }
@@ -134,48 +143,6 @@ extension MovieQuizViewController: AlertPresenterDelegate {
         switch action {
         case .reset:
             movieQuiz.startNewGame()
-        }
-    }
-}
-
-private extension GameState {
-    var canAnswer: Bool {
-        switch self {
-        case .nextRiddle:
-            return true
-        case .negativeAnswer, .positiveAnswer, .gameEnded, .loadingData, .loadingError:
-            return false
-        }
-    }
-
-    var loadingActive: Bool {
-        switch self {
-        case .loadingData, .loadingError, .gameEnded:
-            return true
-        case .nextRiddle, .negativeAnswer, .positiveAnswer:
-            return false
-        }
-    }
-
-    var imageBorderColor: CGColor? {
-        switch self {
-        case .nextRiddle, .loadingData, .loadingError:
-            return UIColor.ypBlack.cgColor
-        case .positiveAnswer:
-            return UIColor.ypGreen.cgColor
-        case .negativeAnswer:
-            return UIColor.ypRed.cgColor
-        case .gameEnded:
-            return nil
-        }
-    }
-
-    var imageBorderWidth: CGFloat {
-        switch self {
-        case .nextRiddle, .loadingData, .loadingError:
-            return 0
-        case .positiveAnswer, .negativeAnswer, .gameEnded:
-            return 8
         }
     }
 }

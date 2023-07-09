@@ -1,7 +1,9 @@
 import Foundation
 
 final class MovieQuizModelImpl: MovieQuizModel {
-    private weak var delegate: MovieQuizModelDelegat?
+
+    weak var delegate: MovieQuizModelDelegat?
+
     private let riddleGenerator: RiddleFactory
     private let statisticService: StatisticService
     private var movieRiddles: [MovieRiddle] = []
@@ -9,8 +11,7 @@ final class MovieQuizModelImpl: MovieQuizModel {
     private var currentRiddleNumber: Int = 0
     private var error: NetworkError?
 
-    required init(delegate: MovieQuizModelDelegat, riddleGenerator: RiddleFactory, statisticService: StatisticService) {
-        self.delegate = delegate
+    required init(riddleGenerator: RiddleFactory, statisticService: StatisticService) {
         self.riddleGenerator = riddleGenerator
         self.statisticService = statisticService
     }

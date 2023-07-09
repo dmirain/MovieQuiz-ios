@@ -1,11 +1,7 @@
 import UIKit
 
 final class AlertPresenterImpl: AlertPresenter {
-    private weak var delegate: AlertPresenterDelegate?
-
-    required init(delegate: AlertPresenterDelegate) {
-        self.delegate = delegate
-    }
+    weak var delegate: AlertPresenterDelegate?
 
     func show(with alertDto: AlertDto) {
         let alert = UIAlertController(
