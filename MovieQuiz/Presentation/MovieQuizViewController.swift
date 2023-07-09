@@ -37,7 +37,7 @@ final class MovieQuizViewController: UIViewController {
 private extension MovieQuizViewController {
     func initialize() {
         movieQuiz = MovieQuizModelImpl(
-            delegat: self,
+            delegate: self,
             riddleGenerator: RiddleFactoryImpl(
                 movieHubGateway: KPGatewayImpl(
                     httpClient: NetworkClientImpl()

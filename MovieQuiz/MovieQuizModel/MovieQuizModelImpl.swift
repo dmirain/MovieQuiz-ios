@@ -9,8 +9,8 @@ final class MovieQuizModelImpl: MovieQuizModel {
     private var currentRiddleNumber: Int = 0
     private var error: NetworkError?
 
-    required init(delegat: MovieQuizModelDelegat, riddleGenerator: RiddleFactory, statisticService: StatisticService) {
-        self.delegate = delegat
+    required init(delegate: MovieQuizModelDelegat, riddleGenerator: RiddleFactory, statisticService: StatisticService) {
+        self.delegate = delegate
         self.riddleGenerator = riddleGenerator
         self.statisticService = statisticService
     }
