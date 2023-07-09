@@ -25,16 +25,12 @@ final class MovieQuizViewController: UIViewController {
     }
 
     required init?(coder: NSCoder) {
-        movieQuiz = MovieQuizModelImpl(
-            riddleGenerator: RiddleFactoryImpl(
-                movieHubGateway: KPGatewayImpl(
-                    httpClient: NetworkClientImpl()
-                )
-            ),
-            statisticService: StatisticServiceImpl(
-                storage: StatisticStorageImpl.shared
-            )
-        )
+        let httpClient = NetworkClientImpl()
+        let movieHubGateway = KPGatewayImpl(httpClient: httpClient)
+        let riddleGenerator = RiddleFactoryImpl(movieHubGateway: movieHubGateway)
+        let statisticService = StatisticServiceImpl(storage: StatisticStorageImpl.shared)
+
+        movieQuiz = MovieQuizModelImpl(riddleGenerator: riddleGenerator, statisticService: statisticService)
         alertPresenter = AlertPresenterImpl()
         mainPresenter = MovieQuizPresenterImpl()
 
