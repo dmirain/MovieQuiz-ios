@@ -5,21 +5,24 @@ protocol NetworkClient {
 }
 
 enum NetworkError: Error {
-    case connectError(code: URLError.Code)
+    case connectError(error: URLError)
     case codeError(code: Int)
     case emptyData
     case parseError
+    case unknownError(error: Error)
 
     func asText() -> String {
         switch self {
-        case let .connectError(code):
-            return "Ошибка соединения: \(code.rawValue)"
+        case let .connectError(error):
+            return "Ошибка соединения: \(error.localizedDescription)"
         case let .codeError(code):
             return "Сервер ответил ошибкой: \(code)"
         case .emptyData:
             return "Сервер не прислал данные"
         case .parseError:
             return "Ошибка разбора данных"
+        case let .unknownError(error):
+            return "Неизвестная ошибка: \(error.localizedDescription)"
         }
     }
 }
@@ -36,7 +39,7 @@ struct NetworkClientImpl: NetworkClient {
 
             return data
         } catch let error as URLError {
-            throw NetworkError.connectError(code: error.code)
+            throw NetworkError.connectError(error: error)
         }
     }
 }

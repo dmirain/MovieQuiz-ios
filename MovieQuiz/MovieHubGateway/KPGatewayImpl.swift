@@ -42,12 +42,12 @@ struct KPGatewayImpl: MovieHubGateway {
             .filter { $0.url != nil }
             .prefix(10)
         )
-
+                                   
         guard moviesWithUrls.count == 10 else { throw NetworkError.emptyData }
 
         return await convertMovieItems(moviesWithUrls)
     }
-
+    
     private func convertMovieItems(_ movieItems: [KPMovieItem]) async -> [MovieData] {
         var result = [MovieData]()
         await withTaskGroup(of: MovieData.self) { group in

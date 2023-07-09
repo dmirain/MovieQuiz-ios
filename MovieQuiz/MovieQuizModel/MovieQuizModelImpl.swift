@@ -58,7 +58,7 @@ final class MovieQuizModelImpl: MovieQuizModel {
                 } catch let error as NetworkError {
                     self.error = error
                 } catch let error {
-                    fatalError("Неизвестное иcключение \(error.localizedDescription)")
+                    self.error = .unknownError(error: error)
                 }
 
                 Task { @MainActor [weak self] in
