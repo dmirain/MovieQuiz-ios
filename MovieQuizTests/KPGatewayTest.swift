@@ -52,9 +52,7 @@ struct MockHttp: NetworkClient {
                 request.url?.description,
                 "https://st.kp.yandex.net/images/film_iphone/iphone360_535341.jpg"
             )
-            // swiftlint:disable object_literal
             return UIImage(named: "Old")!.pngData()!
-            // swiftlint:enable object_literal
         }
 
         throw NetworkError.emptyData

@@ -40,6 +40,7 @@
 		7970E6162A37BA4200E42D26 /* ResultAlertDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E6152A37BA4200E42D26 /* ResultAlertDto.swift */; };
 		798B2CFB2A365AA3002477D6 /* MovieHubGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798B2CFA2A365AA3002477D6 /* MovieHubGateway.swift */; };
 		798CF8282A62BE77000D63A0 /* ArrayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798CF8272A62BE77000D63A0 /* ArrayTest.swift */; };
+		798CF82F2A62C5AB000D63A0 /* MockHubGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798CF82E2A62C5AB000D63A0 /* MockHubGateway.swift */; };
 		799175472A1FBC7900ACA683 /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 799175452A1FBC7800ACA683 /* YS Display-Bold.ttf */; };
 		799175482A1FBC7900ACA683 /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 799175462A1FBC7800ACA683 /* YS Display-Medium.ttf */; };
 		79A833ED2A629E7F00F0E4E0 /* KPGatewayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A833EC2A629E7F00F0E4E0 /* KPGatewayTest.swift */; };
@@ -100,6 +101,7 @@
 		7970E6152A37BA4200E42D26 /* ResultAlertDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAlertDto.swift; sourceTree = "<group>"; };
 		798B2CFA2A365AA3002477D6 /* MovieHubGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieHubGateway.swift; sourceTree = "<group>"; };
 		798CF8272A62BE77000D63A0 /* ArrayTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTest.swift; sourceTree = "<group>"; };
+		798CF82E2A62C5AB000D63A0 /* MockHubGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHubGateway.swift; sourceTree = "<group>"; };
 		799175452A1FBC7800ACA683 /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
 		799175462A1FBC7800ACA683 /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Medium.ttf"; sourceTree = "<group>"; };
 		79A833E32A629E2200F0E4E0 /* MovieQuizTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieQuizTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +189,7 @@
 				792C4F502A27F46700D54203 /* MovieData.swift */,
 				790600292A488DCA00AD0E62 /* KPMovieDto.swift */,
 				7908FC0E2A51CC2500FEFA9E /* KPGatewayImpl.swift */,
+				798CF82E2A62C5AB000D63A0 /* MockHubGateway.swift */,
 			);
 			path = MovieHubGateway;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				7908FC0F2A51CC2500FEFA9E /* KPGatewayImpl.swift in Sources */,
 				7970E6092A37A48A00E42D26 /* GameResultDto.swift in Sources */,
 				7906002A2A488DCA00AD0E62 /* KPMovieDto.swift in Sources */,
+				798CF82F2A62C5AB000D63A0 /* MockHubGateway.swift in Sources */,
 				7908FC362A5ADE4500FEFA9E /* MovieQuizPresenterDelegate.swift in Sources */,
 				7908FC332A5ADA1100FEFA9E /* MovieQuizPresenter.swift in Sources */,
 				792C4F3F2A27E27B00D54203 /* Double+Extensions.swift in Sources */,
@@ -505,6 +509,116 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		798CF8292A62C2FE000D63A0 /* Tests */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = TESTS;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Tests;
+		};
+		798CF82A2A62C2FE000D63A0 /* Tests */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V32PFZNAH5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MovieQuiz/Resources/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.dmirain.MovieQuiz;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Tests;
+		};
+		798CF82B2A62C2FE000D63A0 /* Tests */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V32PFZNAH5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.dmirain.MovieQuiz.MovieQuizTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MovieQuiz.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MovieQuiz";
+			};
+			name = Tests;
+		};
 		79A833E92A629E2200F0E4E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -653,6 +767,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -726,6 +841,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				79A833E92A629E2200F0E4E0 /* Debug */,
+				798CF82B2A62C2FE000D63A0 /* Tests */,
 				79A833EA2A629E2200F0E4E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -735,6 +851,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AD1ABAC02831907F00B3E448 /* Debug */,
+				798CF8292A62C2FE000D63A0 /* Tests */,
 				AD1ABAC12831907F00B3E448 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -744,6 +861,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AD1ABAC32831907F00B3E448 /* Debug */,
+				798CF82A2A62C2FE000D63A0 /* Tests */,
 				AD1ABAC42831907F00B3E448 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
