@@ -9,6 +9,7 @@ final class AlertPresenterImpl: AlertPresenter {
             message: alertDto.message,
             preferredStyle: .alert
         )
+        alert.view.accessibilityIdentifier = "Alert"
 
         let action = UIAlertAction(title: alertDto.actionTitle, style: .default) { [weak self] _ in
             guard let self else {
