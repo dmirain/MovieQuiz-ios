@@ -35,8 +35,9 @@ final class MovieQuizModelImpl: MovieQuizModel {
             delegate.acceptNextGameState(state: .negativeAnswer)
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+        Task { @MainActor [weak self] in
             guard let self else { return }
+            try? await Task.sleep(nanoseconds: 1 * NSEC_PER_SEC)
             self.nextGameState()
         }
     }
