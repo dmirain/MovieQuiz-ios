@@ -1,7 +1,7 @@
 import XCTest
 @testable import MovieQuiz
 
-struct MockStorageReturnNil: StatisticStorage {
+struct MockStorageFirstGame: StatisticStorage {
     static var shared: StatisticStorage = Self()
 
     func get() -> StatisticDto? {
@@ -16,7 +16,7 @@ struct MockStorageReturnNil: StatisticStorage {
     }
 }
 
-struct MockStorageReturnOneGame: StatisticStorage {
+struct MockStorageSecondGame: StatisticStorage {
     static var shared: StatisticStorage = Self()
 
     func get() -> StatisticDto? {
@@ -40,10 +40,11 @@ struct MockStorageReturnOneGame: StatisticStorage {
 final class StatisticServiceTest: XCTestCase {
 
     func testFirstGame() throws {
-        let service = StatisticServiceImpl(storage: MockStorageReturnNil())
-
+        // Given
+        let service = StatisticServiceImpl(storage: MockStorageFirstGame())
+        // When
         let result = service.calculateAndSave(with: GameResultDto(correctAnswers: 10, riddlesCount: 10))
-
+        // Then
         XCTAssertEqual(result.averageValue, 100)
         XCTAssertEqual(result.gamesCount, 1)
         XCTAssertEqual(result.recordRiddlesCount, 10)
@@ -51,10 +52,11 @@ final class StatisticServiceTest: XCTestCase {
     }
 
     func testSecondGame() throws {
-        let service = StatisticServiceImpl(storage: MockStorageReturnOneGame())
-
+        // Given
+        let service = StatisticServiceImpl(storage: MockStorageSecondGame())
+        // When
         let result = service.calculateAndSave(with: GameResultDto(correctAnswers: 4, riddlesCount: 10))
-
+        // Then
         XCTAssertEqual(result.averageValue, 45)
         XCTAssertEqual(result.gamesCount, 2)
         XCTAssertEqual(result.recordRiddlesCount, 10)

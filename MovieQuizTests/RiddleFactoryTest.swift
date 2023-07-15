@@ -16,8 +16,11 @@ struct MockMovieHub: MovieHubGateway {
 final class RiddleFactoryTest: XCTestCase {
 
     func testGenerate() async throws {
+        // Given
         let factory = RiddleFactoryImpl(movieHubGateway: MockMovieHub())
+        // When
         let result = try? await factory.generate()
+        // Then
         XCTAssertNotNil(result)
         guard let result else { return }
         XCTAssertEqual(result.count, 1)
