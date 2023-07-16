@@ -1,7 +1,9 @@
 import Foundation
 
 final class MovieQuizModelImpl: MovieQuizModel {
-    private weak var delegate: MovieQuizModelDelegat?
+
+    weak var delegate: MovieQuizModelDelegate?
+
     private let riddleGenerator: RiddleFactory
     private let statisticService: StatisticService
     private var movieRiddles: [MovieRiddle] = []
@@ -9,8 +11,7 @@ final class MovieQuizModelImpl: MovieQuizModel {
     private var currentRiddleNumber: Int = 0
     private var error: NetworkError?
 
-    required init(delegat: MovieQuizModelDelegat, riddleGenerator: RiddleFactory, statisticService: StatisticService) {
-        self.delegate = delegat
+    required init(riddleGenerator: RiddleFactory, statisticService: StatisticService) {
         self.riddleGenerator = riddleGenerator
         self.statisticService = statisticService
     }
@@ -34,8 +35,9 @@ final class MovieQuizModelImpl: MovieQuizModel {
             delegate.acceptNextGameState(state: .negativeAnswer)
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+        Task { @MainActor [weak self] in
             guard let self else { return }
+            try? await Task.sleep(nanoseconds: 1 * NSEC_PER_SEC)
             self.nextGameState()
         }
     }
@@ -50,20 +52,23 @@ final class MovieQuizModelImpl: MovieQuizModel {
 
         if movieRiddles.isEmpty {
             assert(currentRiddleNumber == 0)
-            riddleGenerator.generate { [weak self] result in
-                guard let self else { return }
 
-                switch result {
-                case let .success(riddles):
-                    self.movieRiddles = riddles
-                case let .failure(error):
+            Task { [weak self] in
+                guard let self else { return }
+                do {
+                    self.movieRiddles = try await self.riddleGenerator.generate()
+                } catch let error as NetworkError {
                     self.error = error
+                } catch let error {
+                    self.error = .unknownError(error: error)
                 }
-                DispatchQueue.main.async { [weak self] in
+
+                Task { @MainActor [weak self] in
                     guard let self else { return }
                     self.nextGameState()
                 }
             }
+
             self.delegate?.acceptNextGameState(state: .loadingData)
             return
         }

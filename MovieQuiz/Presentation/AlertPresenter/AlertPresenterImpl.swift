@@ -1,11 +1,7 @@
 import UIKit
 
 final class AlertPresenterImpl: AlertPresenter {
-    private weak var delegate: AlertPresenterDelegate?
-
-    required init(delegate: AlertPresenterDelegate) {
-        self.delegate = delegate
-    }
+    weak var delegate: AlertPresenterDelegate?
 
     func show(with alertDto: AlertDto) {
         let alert = UIAlertController(
@@ -13,6 +9,7 @@ final class AlertPresenterImpl: AlertPresenter {
             message: alertDto.message,
             preferredStyle: .alert
         )
+        alert.view.accessibilityIdentifier = "Alert"
 
         let action = UIAlertAction(title: alertDto.actionTitle, style: .default) { [weak self] _ in
             guard let self else {

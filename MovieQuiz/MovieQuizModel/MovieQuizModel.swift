@@ -1,5 +1,7 @@
 protocol MovieQuizModel {
-    init(delegat: MovieQuizModelDelegat, riddleGenerator: RiddleFactory, statisticService: StatisticService)
+    var delegate: MovieQuizModelDelegate? { get set }
+
+    init(riddleGenerator: RiddleFactory, statisticService: StatisticService)
 
     func startNewGame()
     func checkAnswer(_ answer: Answer)

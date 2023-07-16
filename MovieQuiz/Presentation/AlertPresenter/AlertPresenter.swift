@@ -6,6 +6,7 @@ protocol AlertPresenterDelegate: AnyObject {
 }
 
 protocol AlertPresenter {
-    init(delegate: AlertPresenterDelegate)
+    var delegate: AlertPresenterDelegate? { get set }
+
     func show(with alertDto: AlertDto)
 }

@@ -1,3 +1,3 @@
-protocol MovieQuizModelDelegat: AnyObject {
+protocol MovieQuizModelDelegate: AnyObject {
     func acceptNextGameState(state: GameState)
 }

@@ -17,7 +17,6 @@ opt_in_rules:
   - overridden_super_call
   - optional_enum_case_matching
   - operator_usage_whitespace
-  - object_literal
   - number_separator
   - nslocalizedstring_key
   - multiline_parameters_brackets
