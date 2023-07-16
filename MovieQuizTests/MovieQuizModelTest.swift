@@ -1,47 +1,7 @@
 import XCTest
 @testable import MovieQuiz
 
-struct MockStatisticService: StatisticService {
-    static let statistic = StatisticDto(
-        gamesCount: 1,
-        recordValue: 5,
-        recordRiddlesCount: 10,
-        recordDate: Date(),
-        averageValue: 50
-    )
-
-    func calculateAndSave(with result: GameResultDto) -> StatisticDto {
-        Self.statistic
-    }
-}
-
-struct MockRiddleFactory: RiddleFactory {
-    static let image = UIImage()
-
-    static let riddles = [
-        MovieRiddleImpl(
-            name: "Первый",
-            rating: 8.5,
-            image: image,
-            riddleValue: 7,
-            riddleSign: .less
-        ),
-        MovieRiddleImpl(
-            name: "Второй",
-            rating: 7,
-            image: image,
-            riddleValue: 8,
-            riddleSign: .less
-        )
-    ]
-
-    func generate() async throws -> [MovieRiddle] {
-        try await Task.sleep(nanoseconds: 2 * NSEC_PER_SEC)
-        return Self.riddles
-    }
-}
-
-final class MovieQuizModelTest: XCTestCase, MovieQuizModelDelegat {
+final class MovieQuizModelTest: XCTestCase, MovieQuizModelDelegate {
     private var states: [GameState] = []
     private var nextRiddleExpectation: XCTestExpectation!
 
@@ -59,7 +19,7 @@ final class MovieQuizModelTest: XCTestCase, MovieQuizModelDelegat {
         }
     }
 
-    func testExample() throws {
+    func testGameLogic() throws {
 
         let factoryCls = MockRiddleFactory.self
         let model = MovieQuizModelImpl(

@@ -1,5 +1,5 @@
 protocol MovieQuizModel {
-    var delegate: MovieQuizModelDelegat? { get set }
+    var delegate: MovieQuizModelDelegate? { get set }
 
     init(riddleGenerator: RiddleFactory, statisticService: StatisticService)
 

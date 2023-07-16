@@ -2,7 +2,7 @@ import Foundation
 
 final class MovieQuizModelImpl: MovieQuizModel {
 
-    weak var delegate: MovieQuizModelDelegat?
+    weak var delegate: MovieQuizModelDelegate?
 
     private let riddleGenerator: RiddleFactory
     private let statisticService: StatisticService

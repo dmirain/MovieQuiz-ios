@@ -10,7 +10,7 @@
 		790600282A4888E900AD0E62 /* NetworkClientImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790600272A4888E900AD0E62 /* NetworkClientImpl.swift */; };
 		7906002A2A488DCA00AD0E62 /* KPMovieDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790600292A488DCA00AD0E62 /* KPMovieDto.swift */; };
 		7908FC0F2A51CC2500FEFA9E /* KPGatewayImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7908FC0E2A51CC2500FEFA9E /* KPGatewayImpl.swift */; };
-		7908FC112A5219E700FEFA9E /* MovieQuizModelDelegat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7908FC102A5219E700FEFA9E /* MovieQuizModelDelegat.swift */; };
+		7908FC112A5219E700FEFA9E /* MovieQuizModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7908FC102A5219E700FEFA9E /* MovieQuizModelDelegate.swift */; };
 		7908FC272A54A94400FEFA9E /* ErrorAlertDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7908FC262A54A94400FEFA9E /* ErrorAlertDto.swift */; };
 		7908FC2B2A54ACDC00FEFA9E /* AlertDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7908FC2A2A54ACDC00FEFA9E /* AlertDto.swift */; };
 		7908FC2D2A54AE3E00FEFA9E /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7908FC2C2A54AE3E00FEFA9E /* AlertAction.swift */; };
@@ -26,6 +26,11 @@
 		792C4F4C2A27F38B00D54203 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F4B2A27F38B00D54203 /* Answer.swift */; };
 		792C4F512A27F46700D54203 /* MovieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792C4F502A27F46700D54203 /* MovieData.swift */; };
 		7951C80C2A62D46600CA2DE6 /* MovieQuizModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951C80B2A62D46600CA2DE6 /* MovieQuizModelTest.swift */; };
+		7951C80F2A63939800CA2DE6 /* MockStatisticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951C80E2A63939800CA2DE6 /* MockStatisticService.swift */; };
+		7951C8112A6393E200CA2DE6 /* MockRiddleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951C8102A6393E200CA2DE6 /* MockRiddleFactory.swift */; };
+		7951C8132A63944700CA2DE6 /* MockStatisticStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951C8122A63944700CA2DE6 /* MockStatisticStorage.swift */; };
+		7951C8152A6394A700CA2DE6 /* MockMovieHubGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951C8142A6394A700CA2DE6 /* MockMovieHubGateway.swift */; };
+		7951C8172A63950000CA2DE6 /* MockNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7951C8162A63950000CA2DE6 /* MockNetworkClient.swift */; };
 		7970E5FB2A36FA3400E42D26 /* MovieQuizModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E5FA2A36FA3400E42D26 /* MovieQuizModel.swift */; };
 		7970E5FD2A36FA6A00E42D26 /* RiddleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E5FC2A36FA6A00E42D26 /* RiddleFactory.swift */; };
 		7970E5FF2A36FA9A00E42D26 /* MovieRiddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7970E5FE2A36FA9A00E42D26 /* MovieRiddle.swift */; };
@@ -80,7 +85,7 @@
 		790600272A4888E900AD0E62 /* NetworkClientImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientImpl.swift; sourceTree = "<group>"; };
 		790600292A488DCA00AD0E62 /* KPMovieDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPMovieDto.swift; sourceTree = "<group>"; };
 		7908FC0E2A51CC2500FEFA9E /* KPGatewayImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPGatewayImpl.swift; sourceTree = "<group>"; };
-		7908FC102A5219E700FEFA9E /* MovieQuizModelDelegat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizModelDelegat.swift; sourceTree = "<group>"; };
+		7908FC102A5219E700FEFA9E /* MovieQuizModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizModelDelegate.swift; sourceTree = "<group>"; };
 		7908FC262A54A94400FEFA9E /* ErrorAlertDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertDto.swift; sourceTree = "<group>"; };
 		7908FC2A2A54ACDC00FEFA9E /* AlertDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDto.swift; sourceTree = "<group>"; };
 		7908FC2C2A54AE3E00FEFA9E /* AlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
@@ -96,6 +101,11 @@
 		792C4F4B2A27F38B00D54203 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		792C4F502A27F46700D54203 /* MovieData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieData.swift; sourceTree = "<group>"; };
 		7951C80B2A62D46600CA2DE6 /* MovieQuizModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizModelTest.swift; sourceTree = "<group>"; };
+		7951C80E2A63939800CA2DE6 /* MockStatisticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStatisticService.swift; sourceTree = "<group>"; };
+		7951C8102A6393E200CA2DE6 /* MockRiddleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRiddleFactory.swift; sourceTree = "<group>"; };
+		7951C8122A63944700CA2DE6 /* MockStatisticStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStatisticStorage.swift; sourceTree = "<group>"; };
+		7951C8142A6394A700CA2DE6 /* MockMovieHubGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMovieHubGateway.swift; sourceTree = "<group>"; };
+		7951C8162A63950000CA2DE6 /* MockNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkClient.swift; sourceTree = "<group>"; };
 		7970E5FA2A36FA3400E42D26 /* MovieQuizModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizModel.swift; sourceTree = "<group>"; };
 		7970E5FC2A36FA6A00E42D26 /* RiddleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiddleFactory.swift; sourceTree = "<group>"; };
 		7970E5FE2A36FA9A00E42D26 /* MovieRiddle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRiddle.swift; sourceTree = "<group>"; };
@@ -188,7 +198,7 @@
 				7970E6042A37A43200E42D26 /* Enums */,
 				7970E5FA2A36FA3400E42D26 /* MovieQuizModel.swift */,
 				792C4F412A27F1DE00D54203 /* MovieQuizModelImpl.swift */,
-				7908FC102A5219E700FEFA9E /* MovieQuizModelDelegat.swift */,
+				7908FC102A5219E700FEFA9E /* MovieQuizModelDelegate.swift */,
 				7970E5FC2A36FA6A00E42D26 /* RiddleFactory.swift */,
 				792C4F452A27F22800D54203 /* RiddleFactoryImpl.swift */,
 				7970E5FE2A36FA9A00E42D26 /* MovieRiddle.swift */,
@@ -211,6 +221,18 @@
 				798CF82E2A62C5AB000D63A0 /* MockHubGateway.swift */,
 			);
 			path = MovieHubGateway;
+			sourceTree = "<group>";
+		};
+		7951C80D2A63936100CA2DE6 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				7951C80E2A63939800CA2DE6 /* MockStatisticService.swift */,
+				7951C8102A6393E200CA2DE6 /* MockRiddleFactory.swift */,
+				7951C8122A63944700CA2DE6 /* MockStatisticStorage.swift */,
+				7951C8142A6394A700CA2DE6 /* MockMovieHubGateway.swift */,
+				7951C8162A63950000CA2DE6 /* MockNetworkClient.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		7970E6042A37A43200E42D26 /* Enums */ = {
@@ -252,6 +274,7 @@
 		79A833E42A629E2200F0E4E0 /* MovieQuizTests */ = {
 			isa = PBXGroup;
 			children = (
+				7951C80D2A63936100CA2DE6 /* Mocks */,
 				79A833EC2A629E7F00F0E4E0 /* KPGatewayTest.swift */,
 				79A833EE2A62B14300F0E4E0 /* RiddleFactoryTest.swift */,
 				79A833F02A62B5F500F0E4E0 /* StatisticServiceTest.swift */,
@@ -495,8 +518,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				79A833EF2A62B14300F0E4E0 /* RiddleFactoryTest.swift in Sources */,
+				7951C8172A63950000CA2DE6 /* MockNetworkClient.swift in Sources */,
 				798CF8282A62BE77000D63A0 /* ArrayTest.swift in Sources */,
+				7951C8152A6394A700CA2DE6 /* MockMovieHubGateway.swift in Sources */,
+				7951C80F2A63939800CA2DE6 /* MockStatisticService.swift in Sources */,
 				79A833ED2A629E7F00F0E4E0 /* KPGatewayTest.swift in Sources */,
+				7951C8132A63944700CA2DE6 /* MockStatisticStorage.swift in Sources */,
+				7951C8112A6393E200CA2DE6 /* MockRiddleFactory.swift in Sources */,
 				79A833F12A62B5F500F0E4E0 /* StatisticServiceTest.swift in Sources */,
 				7951C80C2A62D46600CA2DE6 /* MovieQuizModelTest.swift in Sources */,
 			);
@@ -514,7 +542,7 @@
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
 				7970E60E2A37A4F500E42D26 /* StatisticServiceImpl.swift in Sources */,
 				7970E6122A37B15000E42D26 /* AlertPresenter.swift in Sources */,
-				7908FC112A5219E700FEFA9E /* MovieQuizModelDelegat.swift in Sources */,
+				7908FC112A5219E700FEFA9E /* MovieQuizModelDelegate.swift in Sources */,
 				792C4F482A27F25600D54203 /* MovieRiddleImpl.swift in Sources */,
 				7970E6142A37B16400E42D26 /* AlertPresenterImpl.swift in Sources */,
 				790600282A4888E900AD0E62 /* NetworkClientImpl.swift in Sources */,

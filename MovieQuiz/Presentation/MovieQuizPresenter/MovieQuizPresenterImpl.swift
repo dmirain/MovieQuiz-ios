@@ -1,6 +1,33 @@
 final class MovieQuizPresenterImpl: MovieQuizPresenter {
     weak var viewController: MovieQuizPresenterDelegate?
 
+    private var movieQuiz: MovieQuizModel
+
+    init(viewController: MovieQuizPresenterDelegate? = nil) {
+        self.viewController = viewController
+
+        #if TESTS
+        let movieHubGateway = MockHubGateway()
+        #else
+        let httpClient = NetworkClientImpl()
+        let movieHubGateway = KPGatewayImpl(httpClient: httpClient)
+        #endif
+
+        let riddleGenerator = RiddleFactoryImpl(movieHubGateway: movieHubGateway)
+        let statisticService = StatisticServiceImpl(storage: StatisticStorageImpl.shared)
+
+        movieQuiz = MovieQuizModelImpl(riddleGenerator: riddleGenerator, statisticService: statisticService)
+        movieQuiz.delegate = self
+    }
+
+    func startNewGame() {
+        movieQuiz.startNewGame()
+    }
+
+    func checkAnswer(_ answer: Answer) {
+        movieQuiz.checkAnswer(answer)
+    }
+
     func updateViewState(to state: GameState) {
         guard let viewController else { return }
 
@@ -22,5 +49,11 @@ final class MovieQuizPresenterImpl: MovieQuizPresenter {
         case .loadingData:
             viewController.showSplashScrean()
         }
+    }
+}
+
+extension MovieQuizPresenterImpl: MovieQuizModelDelegate {
+    func acceptNextGameState(state: GameState) {
+        self.updateViewState(to: state)
     }
 }

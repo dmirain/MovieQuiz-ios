@@ -1,23 +1,11 @@
 import XCTest
 @testable import MovieQuiz
 
-struct MockMovieHub: MovieHubGateway {
-    func movies() async throws -> [MovieData] {
-        [
-            MovieData(
-                name: "Название фильма",
-                rating: 8.5,
-                imageData: nil
-            )
-        ]
-    }
-}
-
 final class RiddleFactoryTest: XCTestCase {
 
     func testGenerate() async throws {
         // Given
-        let factory = RiddleFactoryImpl(movieHubGateway: MockMovieHub())
+        let factory = RiddleFactoryImpl(movieHubGateway: MockMovieHubGateway())
         // When
         let result = try? await factory.generate()
         // Then

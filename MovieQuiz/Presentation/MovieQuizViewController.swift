@@ -3,7 +3,6 @@ import UIKit
 // MARK: - MovieQuizViewController
 
 final class MovieQuizViewController: UIViewController {
-    private var movieQuiz: MovieQuizModel
     private var alertPresenter: AlertPresenter
     private var mainPresenter: MovieQuizPresenter
 
@@ -25,23 +24,11 @@ final class MovieQuizViewController: UIViewController {
     }
 
     required init?(coder: NSCoder) {
-        #if TESTS
-        let movieHubGateway = MockHubGateway()
-        #else
-        let httpClient = NetworkClientImpl()
-        let movieHubGateway = KPGatewayImpl(httpClient: httpClient)
-        #endif
-
-        let riddleGenerator = RiddleFactoryImpl(movieHubGateway: movieHubGateway)
-        let statisticService = StatisticServiceImpl(storage: StatisticStorageImpl.shared)
-
-        movieQuiz = MovieQuizModelImpl(riddleGenerator: riddleGenerator, statisticService: statisticService)
-        alertPresenter = AlertPresenterImpl()
         mainPresenter = MovieQuizPresenterImpl()
+        alertPresenter = AlertPresenterImpl()
 
         super.init(coder: coder)
 
-        movieQuiz.delegate = self
         alertPresenter.delegate = self
         mainPresenter.viewController = self
     }
@@ -50,15 +37,15 @@ final class MovieQuizViewController: UIViewController {
         super.viewDidLoad()
         setFonts()
         activityIndicator.hidesWhenStopped = true
-        movieQuiz.startNewGame()
+        mainPresenter.startNewGame()
     }
 
     @IBAction private func noButtonClicked() {
-        movieQuiz.checkAnswer(.no)
+        mainPresenter.checkAnswer(.no)
     }
 
     @IBAction private func yesButtonClicked() {
-        movieQuiz.checkAnswer(.yes)
+        mainPresenter.checkAnswer(.yes)
     }
 
     private func setFonts() {
@@ -98,11 +85,15 @@ extension MovieQuizViewController: MovieQuizPresenterDelegate {
     func showPositiveAnswer() {
         imageView.layer.borderColor = UIColor.ypGreen.cgColor
         imageView.layer.borderWidth = 8
+        noButton.isEnabled = false
+        yesButton.isEnabled = false
     }
 
     func showNegativeAnswer() {
         imageView.layer.borderColor = UIColor.ypRed.cgColor
         imageView.layer.borderWidth = 8
+        noButton.isEnabled = false
+        yesButton.isEnabled = false
     }
 
     func showSplashScrean() {
@@ -127,13 +118,6 @@ extension MovieQuizViewController: MovieQuizPresenterDelegate {
     }
 }
 
-extension MovieQuizViewController: MovieQuizModelDelegat {
-
-    func acceptNextGameState(state: GameState) {
-        mainPresenter.updateViewState(to: state)
-    }
-}
-
 extension MovieQuizViewController: AlertPresenterDelegate {
 
     func presentAlert(_ alert: UIAlertController) {
@@ -143,7 +127,7 @@ extension MovieQuizViewController: AlertPresenterDelegate {
     func performAlertAction(action: AlertAction) {
         switch action {
         case .reset:
-            movieQuiz.startNewGame()
+            mainPresenter.startNewGame()
         }
     }
 }

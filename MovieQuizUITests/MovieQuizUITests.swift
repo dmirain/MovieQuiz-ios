@@ -22,8 +22,12 @@ final class MovieQuizUITests: XCTestCase {
         let firstPoster = app.images["Poster"]
         let firstPosterData = firstPoster.screenshot().pngRepresentation
 
-        app.buttons["Yes"].tap()
+        let button = app.buttons["Yes"]
+        XCTAssertTrue(button.isEnabled)
+        button.tap()
+        XCTAssertFalse(button.isEnabled)
         sleep(1)
+        XCTAssertTrue(button.isEnabled)
 
         let secondPoster = app.images["Poster"]
         let secondPosterData = secondPoster.screenshot().pngRepresentation
@@ -38,8 +42,12 @@ final class MovieQuizUITests: XCTestCase {
         let firstPoster = app.images["Poster"]
         let firstPosterData = firstPoster.screenshot().pngRepresentation
 
-        app.buttons["Yes"].tap()
+        let button = app.buttons["No"]
+        XCTAssertTrue(button.isEnabled)
+        button.tap()
+        XCTAssertFalse(button.isEnabled)
         sleep(1)
+        XCTAssertTrue(button.isEnabled)
 
         let secondPoster = app.images["Poster"]
         let secondPosterData = secondPoster.screenshot().pngRepresentation
