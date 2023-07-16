@@ -20,7 +20,7 @@ final class MovieQuizModelTest: XCTestCase, MovieQuizModelDelegate {
     }
 
     func testGameLogic() throws {
-
+        // Given
         let factoryCls = MockRiddleFactory.self
         let model = MovieQuizModelImpl(
             riddleGenerator: MockRiddleFactory(),
@@ -28,6 +28,7 @@ final class MovieQuizModelTest: XCTestCase, MovieQuizModelDelegate {
         )
         model.delegate = self
 
+        // When
         model.startNewGame()
         nextRiddleExpectation = expectation(description: "nextRiddle")
         waitForExpectations(timeout: 3) // Ждём загрузку данных и следующую загадку
@@ -40,6 +41,7 @@ final class MovieQuizModelTest: XCTestCase, MovieQuizModelDelegate {
         nextRiddleExpectation = expectation(description: "gameEnded")
         waitForExpectations(timeout: 2) // Ждём результата игры
 
+        // Then
         XCTAssertEqual(self.states[0], .loadingData)
         XCTAssertEqual(self.states[1], .nextRiddle(
             riddle: factoryCls.riddles[0],

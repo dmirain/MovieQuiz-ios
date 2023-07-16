@@ -69,7 +69,7 @@ final class MovieQuizUITests: XCTestCase {
         XCTAssertTrue(alert.buttons.firstMatch.label == "Сыграть ещё раз")
     }
 
-    func testAlertDismiss() {
+    func testAlertDismiss() throws {
         app.buttons["Yes"].tap()
         sleep(1)
         app.buttons["No"].tap()
