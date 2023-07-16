@@ -3,9 +3,7 @@ final class MovieQuizPresenterImpl: MovieQuizPresenter {
 
     private var movieQuiz: MovieQuizModel
 
-    init(viewController: MovieQuizPresenterDelegate? = nil) {
-        self.viewController = viewController
-
+    init() {
         #if TESTS
         let movieHubGateway = MockHubGateway()
         #else

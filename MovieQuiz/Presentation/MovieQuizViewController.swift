@@ -29,8 +29,8 @@ final class MovieQuizViewController: UIViewController {
 
         super.init(coder: coder)
 
-        alertPresenter.delegate = self
         mainPresenter.viewController = self
+        alertPresenter.delegate = self
     }
 
     override func viewDidLoad() {
